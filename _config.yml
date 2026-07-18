@@ -1,0 +1,159 @@
+# Hexo 配置文件
+## 文档: https://hexo.io/docs/configuration.html
+## 源码: https://github.com/hexojs/hexo/
+
+# 网站基本信息
+# 标题：网站名称，会显示在浏览器标签页和网站头部
+title: zhuyuqinlan's Blog
+# 副标题：显示在标题下方，支持 HTML 标签
+subtitle: '(ง •_•)ง  (ง •̀_•́)ง  ٩(◕‿◕)۶'
+# 描述：网站描述，用于 SEO，长度建议在 150 字符以内
+description: 'zhuyuqinlan的博客'
+# 关键词：用于 SEO，多个关键词用逗号分隔
+keywords: Linux, Python, Java, C/C++, Go, Rust, 前端, 后端, 数据库
+# 作者：网站作者名称
+author: zhuyuqinlan
+# 语言：网站语言，zh-CN 为简体中文，具体可用值取决于主题
+language: zh-CN
+# 时区：网站时区，影响文章日期显示。常见值：Asia/Shanghai、Asia/Tokyo、America/New_York
+timezone: 'Asia/Shanghai'
+
+# 网址设置
+## 在这里设置你的网站 URL。例如使用 GitHub Pages 时设为 'https://username.github.io/project'
+## 如果使用自定义域名，填写你的域名（建议包含协议头 http:// 或 https://）
+url: http://zhuyuqinlan.top
+# 永久链接格式：:year=年, :month=月, :day=日, :title=标题, :hash=文件哈希
+permalink: :year/:month/:day/:title/
+# 永久链接默认值：为permalink中的变量设置默认值
+# 示例: permalink_defaults: { post: ':category/:title.html', page: ':title.html' }
+permalink_defaults: {}
+# 美化链接
+# trailing_index: false 可去除链接末尾的 index.html
+# trailing_html: false 可去除链接末尾的 .html（需主题配合）
+pretty_urls:
+  trailing_index: true  # 设为 false 可去除永久链接末尾的 'index.html'
+  trailing_html: true   # 设为 false 可去除永久链接末尾的 '.html'
+
+# 目录设置
+source_dir: source      # 源文件目录，存放 Markdown 文章和资源
+public_dir: public      # 生成静态文件输出目录
+tag_dir: tags           # 标签目录名
+archive_dir: archives   # 归档目录名
+category_dir: categories # 分类目录名
+code_dir: downloads/code # 代码下载目录（需配合 post_asset_folder 使用）
+i18n_dir: :lang         # 国际化目录，:lang 表示按语言代码存放
+# 不渲染的文件：支持 glob 模式匹配，这些文件会被直接复制到 public 目录
+# 示例:
+# skip_render:
+#   - "test.html"
+#   - "static/**"
+skip_render: []
+
+# 文章写作
+new_post_name: :title.md     # 新文章文件名格式
+default_layout: post         # 默认布局：post（文章）、page（页面）、draft（草稿）
+titlecase: false             # 是否将标题转为 Title Case（每个单词首字母大写）
+# 外链设置：文章中的外部链接是否在新标签页打开
+external_link:
+  enable: true               # 是否启用外链新窗口打开
+  field: site                # 作用范围：site=全站, post=仅文章
+  exclude: ''                # 排除的域名（用空格分隔），示例: 'example.com github.com'
+filename_case: 0             # 文件名大小写：0=不转换, 1=全小写, 2=全大写
+render_drafts: false         # 是否渲染草稿（draft 目录下的文件）
+post_asset_folder: false     # 是否为文章创建对应的资源文件夹（同名目录存放图片等资源）
+relative_link: false         # 是否将链接地址转为相对路径（启用后可能影响图片等资源加载）
+future: true                 # 是否渲染发表日期为未来的文章
+syntax_highlighter: highlight.js # 代码高亮器：highlight.js 或 prismjs
+# Highlight.js 代码高亮配置
+highlight:
+  line_number: true          # 是否显示行号
+  auto_detect: false         # 是否自动检测语言
+  tab_replace: ''            # 将制表符替换为指定字符串，如 '  '（两个空格）
+  wrap: true                 # 是否换行（长代码行是否显示滚动条）
+  hljs: false                # 是否使用 hljs 的 class 样式名
+# Prism.js 代码高亮配置（当 syntax_highlighter 设为 prismjs 时生效）
+prismjs:
+  preprocess: true           # 预处理代码
+  line_number: true          # 是否显示行号
+  tab_replace: ''            # 将制表符替换为指定字符串
+
+# 首页设置
+# path: 首页根路径（默认 = ''）
+# per_page: 每页显示的文章数（0 = 禁用分页）
+# order_by: 文章排序方式（默认按日期降序）
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# 分类与标签
+default_category: uncategorized # 默认分类名（未指定分类时的分类）
+# 分类映射：重命名分类，旧名: 新名
+# 示例:
+# category_map:
+#   Tech: 技术
+#   Life: 生活
+category_map: {}
+# 标签映射：重命名标签，旧名: 新名
+# 示例:
+# tag_map:
+#   js: JavaScript
+tag_map: {}
+
+# 元数据元素
+## 参考: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true  # 是否在页面头部自动添加 generator meta 标签
+
+# 日期 / 时间格式
+## Hexo 使用 Moment.js 来解析和显示日期
+## 可以自定义日期格式，详见:
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD  # 日期格式
+time_format: HH:mm:ss    # 时间格式
+## updated_option 支持 'mtime'（文件修改时间）、'date'（front-matter中的updated）、'empty'（不显示）
+updated_option: 'mtime'
+
+# 分页设置
+## 将 per_page 设为 0 可禁用分页
+per_page: 10            # 每页文章数（0 = 禁用分页）
+pagination_dir: page    # 分页目录名
+
+# 文件包含 / 排除 / 忽略
+## include/exclude 仅对 source/ 目录生效
+## ignore 适用于所有目录，优先级高于 include/exclude
+## 支持 glob 模式：* 匹配任意字符，? 匹配单个字符，** 匹配任意层级目录
+include: []
+exclude: []
+ignore: []
+
+# 扩展设置
+## 插件: https://hexo.io/plugins/
+## 主题: https://hexo.io/themes/
+theme: butterfly
+
+# 部署设置
+## 文档: https://hexo.io/docs/one-command-deployment
+## 常用部署方式（取消注释并填写对应信息即可使用）：
+## 1. GitHub Pages: 需先安装 hexo-deployer-git (npm install hexo-deployer-git --save)
+# deploy:
+#   type: git
+#   repo: https://github.com/username/repo.git
+#   branch: main
+#   message: 站点更新
+## 2. 其他 Git 仓库
+# deploy:
+#   type: git
+#   repo:
+#     github: git@github.com:username/repo.git,main
+#     gitee: git@gitee.com/username/repo.git,master
+## 3. 多方式同时部署
+# deploy:
+#   - type: git
+#     repo: https://github.com/username/blog.git,branch=main
+#   - type: rsync
+#     host: server.com
+#     user: user
+#     root: /var/www/blog
+#     port: 22
+deploy:
+  type: ''
