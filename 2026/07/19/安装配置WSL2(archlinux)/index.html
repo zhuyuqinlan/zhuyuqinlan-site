@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>安装配置 WSL2（Arch Linux） | 牛战士空间站</title><meta name="author" content="zhuyuqinlan"><meta name="copyright" content="zhuyuqinlan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在 Windows 上安装 WSL2 并配置 Arch Linux 发行版，包括桌面环境、开发工具等。  打开 PowerShell（管理员权限）安装WSL1wsl --install  设置默认WSL版本为WSL21wsl --set-default-version 2  查看可用发行版1wsl --list --online  安装完后需要重启 Windows 安装Linux1wsl --i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装配置 WSL2（Arch Linux）">
+<meta property="og:url" content="https://zhuyuqinlan.top/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(archlinux)/index.html">
+<meta property="og:site_name" content="牛战士空间站">
+<meta property="og:description" content="在 Windows 上安装 WSL2 并配置 Arch Linux 发行版，包括桌面环境、开发工具等。  打开 PowerShell（管理员权限）安装WSL1wsl --install  设置默认WSL版本为WSL21wsl --set-default-version 2  查看可用发行版1wsl --list --online  安装完后需要重启 Windows 安装Linux1wsl --i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-19T10:47:15.000Z">
+<meta property="article:modified_time" content="2026-07-19T11:16:35.683Z">
+<meta property="article:author" content="zhuyuqinlan">
+<meta property="article:tag" content="ArchLinux">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Sway">
+<meta property="article:tag" content="WSL">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "安装配置 WSL2（Arch Linux）",
+  "url": "https://zhuyuqinlan.top/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(archlinux)/",
+  "image": "",
+  "datePublished": "2026-07-19T10:47:15.000Z",
+  "dateModified": "2026-07-19T11:16:35.683Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhuyuqinlan",
+      "url": "https://zhuyuqinlan.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zhuyuqinlan.top/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(archlinux)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '安装配置 WSL2（Arch Linux）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">牛战士空间站</span></a><a class="nav-page-title" href="/"><span class="site-name">安装配置 WSL2（Arch Linux）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">安装配置 WSL2（Arch Linux）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-19T10:47:15.000Z" title="发表于 2026-07-19 18:47:15">2026-07-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-19T11:16:35.683Z" title="更新于 2026-07-19 19:16:35">2026-07-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>在 Windows 上安装 WSL2 并配置 Arch Linux 发行版，包括桌面环境、开发工具等。</p>
+</blockquote>
+<h2 id="打开-PowerShell（管理员权限）"><a href="#打开-PowerShell（管理员权限）" class="headerlink" title="打开 PowerShell（管理员权限）"></a>打开 PowerShell（管理员权限）</h2><h2 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--install</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置默认WSL版本为WSL2"><a href="#设置默认WSL版本为WSL2" class="headerlink" title="设置默认WSL版本为WSL2"></a>设置默认WSL版本为WSL2</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看可用发行版"><a href="#查看可用发行版" class="headerlink" title="查看可用发行版"></a>查看可用发行版</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--list</span> <span class="literal">--online</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>安装完后需要重启 Windows</strong></p>
+<h2 id="安装Linux"><a href="#安装Linux" class="headerlink" title="安装Linux"></a>安装Linux</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--install</span> <span class="literal">-d</span> archlinux</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--list</span> <span class="literal">--verbose</span>        <span class="comment"># 查看已安装的 Linux 发行版及状态</span></span><br><span class="line">wsl <span class="literal">-l</span> <span class="literal">-v</span>                   <span class="comment"># 同上</span></span><br><span class="line">wsl <span class="literal">--set-version</span> &lt;Distro&gt; <span class="number">2</span> <span class="comment"># 切换指定发行版到 WSL2</span></span><br><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span> <span class="comment"># 设置默认安装为 WSL2</span></span><br><span class="line">wsl <span class="literal">--shutdown</span>              <span class="comment"># 关闭所有 WSL 实例</span></span><br><span class="line">wsl <span class="literal">--terminate</span> &lt;Distro&gt;    <span class="comment"># 关闭指定发行版</span></span><br><span class="line">wsl <span class="literal">--unregister</span> &lt;Distro&gt;   <span class="comment"># 卸载指定发行版（数据会丢失）</span></span><br><span class="line">wsl <span class="literal">--import</span> &lt;Distro&gt; &lt;InstallDir&gt; &lt;TarFile&gt;  <span class="comment"># 从 tar 安装发行版</span></span><br><span class="line">wsl <span class="literal">--export</span> &lt;Distro&gt; &lt;TarFile&gt;              <span class="comment"># 导出发行版</span></span><br><span class="line">wsl                         <span class="comment"># 启动默认发行版</span></span><br><span class="line">wsl <span class="literal">-d</span> &lt;Distro&gt;             <span class="comment"># 启动指定发行版</span></span><br><span class="line">wsl <span class="literal">-u</span> &lt;User&gt;               <span class="comment"># 以指定用户启动</span></span><br><span class="line">wsl <span class="literal">--user</span> &lt;User&gt;           <span class="comment"># 同上</span></span><br><span class="line">wsl <span class="literal">--exec</span> &lt;Command&gt;        <span class="comment"># 在 WSL 内执行命令后退出</span></span><br><span class="line">wsl <span class="literal">-e</span> &lt;Command&gt;            <span class="comment"># 同上</span></span><br><span class="line">wsl <span class="literal">--update</span>                <span class="comment"># 更新 WSL 内核</span></span><br><span class="line">wsl <span class="literal">--update</span> rollback       <span class="comment"># 回退 WSL 内核更新</span></span><br><span class="line">wsl <span class="literal">--help</span>                  <span class="comment"># 查看所有命令</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ArchLinux配置"><a href="#ArchLinux配置" class="headerlink" title="ArchLinux配置"></a>ArchLinux配置</h2><blockquote>
+<p>直接用的root用户，方便，每次执行命令也不用加sudo</p>
+</blockquote>
+<h3 id="archLinuxcn镜像"><a href="#archLinuxcn镜像" class="headerlink" title="archLinuxcn镜像"></a>archLinuxcn镜像</h3><ul>
+<li>编辑&#x2F;etc&#x2F;pacman.conf在末尾参数加入</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line"><span class="attribute">SigLevel</span> = Optional TrustedOnly</span><br><span class="line">Server = http://repo.archlinuxcn.org/<span class="variable">$arch</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>刷新并导入key</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syyu</span><br><span class="line">pacman -S archlinuxcn-keyring</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装常用包"><a href="#安装常用包" class="headerlink" title="安装常用包"></a>安装常用包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S --needed tmux vim unzip proxychains-ng yazi openssh fastfetch ttf-dejavu wqy-zenhei noto-fonts-cjk bash-completion glibc-locales git paru base-devel docker docker-compose</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/networking#identify-ip-address">https://learn.microsoft.com/zh-cn/windows/wsl/networking#identify-ip-address</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/netWild/p/18503950">https://www.cnblogs.com/netWild/p/18503950</a></p>
+<p>配置参考</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pacman -S fnm</span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(fnm env --use-on-cd --shell bash)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> pacman -S jdk-openjdk jdk-17openjdk</span><br><span class="line">archlinux-java status</span><br><span class="line"><span class="built_in">sudo</span> archlinux-java <span class="built_in">set</span> java-17-openjdk</span><br><span class="line">java --version</span><br><span class="line"></span><br><span class="line">curl --proto <span class="string">&#x27;=https&#x27;</span> --tlsv1.2 https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="wslconfig（放在-Windows-用户目录下）"><a href="#wslconfig（放在-Windows-用户目录下）" class="headerlink" title=".wslconfig（放在 Windows 用户目录下）"></a>.wslconfig（放在 Windows 用户目录下）</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[wsl2]</span></span><br><span class="line"><span class="attr">memory</span>=<span class="number">4</span>GB                        <span class="comment"># 分配给 WSL 2 的内存大小（上限）</span></span><br><span class="line"><span class="attr">processors</span>=<span class="number">2</span>                  <span class="comment"># 分配给 WSL 2 的 CPU 核心数 （上限）</span></span><br><span class="line"> </span><br><span class="line"><span class="section">[experimental]</span></span><br><span class="line"><span class="attr">autoMemoryReclaim</span>=gradual         <span class="comment"># 开启自动回收内存，可在 gradual, dropcache, disabled 之间选择</span></span><br><span class="line"><span class="attr">networkingMode</span>=mirrored           <span class="comment"># 开启镜像网络</span></span><br><span class="line"><span class="attr">dnsTunneling</span>=<span class="literal">true</span>                 <span class="comment"># 开启 DNS Tunneling</span></span><br><span class="line"><span class="attr">firewall</span>=<span class="literal">true</span>                     <span class="comment"># 开启 Windows 防火墙</span></span><br><span class="line"><span class="attr">autoProxy</span>=<span class="literal">false</span>                    <span class="comment"># 开启自动同步代理</span></span><br><span class="line"><span class="attr">sparseVhd</span>=<span class="literal">true</span>                    <span class="comment"># 开启自动释放 WSL2 虚拟硬盘空间</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="新增sudo用户-可选"><a href="#新增sudo用户-可选" class="headerlink" title="新增sudo用户(可选)"></a>新增sudo用户(可选)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G wheel -s /bin/bash zhuyuqinlan</span><br><span class="line">passwd zhuyuqinlan</span><br></pre></td></tr></table></figure>
+
+<h3 id="允许wheel组使用sudo-可选"><a href="#允许wheel组使用sudo-可选" class="headerlink" title="允许wheel组使用sudo(可选)"></a>允许wheel组使用sudo(可选)</h3><p>编辑<code>/etc/sudoers</code></p>
+<p>找到%wheel ALL&#x3D;(ALL) ALL取消注释</p>
+<h3 id="设置wsl"><a href="#设置wsl" class="headerlink" title="设置wsl"></a>设置wsl</h3><p>编辑&#x2F;etc&#x2F;wsl.conf</p>
+<blockquote>
+<p>如果配置了其他用户可以把root换掉</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[boot]</span></span><br><span class="line"><span class="attr">systemd</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[user]</span></span><br><span class="line"><span class="attr">default</span>=root</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置语言环境"><a href="#设置语言环境" class="headerlink" title="设置语言环境"></a>设置语言环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/locale.gen      <span class="comment"># 去掉 en_US.UTF-8 UTF-8 注释</span></span><br><span class="line">locale-gen</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;LANG=en_US.UTF-8&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/locale.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="bash-profile"><a href="#bash-profile" class="headerlink" title=".bash_profile"></a>.bash_profile</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f ~/.bashrc ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">source</span> ~/.bashrc</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="bashrc"><a href="#bashrc" class="headerlink" title=".bashrc"></a>.bashrc</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(fnm env --use-on-cd --shell bash)</span>&quot;</span></span><br><span class="line"><span class="built_in">alias</span> dps=<span class="string">&#x27;docker ps --format &quot;table &#123;&#123;.ID&#125;&#125;    &#123;&#123;.Names&#125;&#125;      &#123;&#123;.Ports&#125;&#125;      &#123;&#123;.Status&#125;&#125;&quot;&#x27;</span> <span class="comment"># 更友好的 Docker 容器列表</span></span><br><span class="line"><span class="built_in">alias</span> dis=<span class="string">&#x27;docker images&#x27;</span> <span class="comment"># 显示 Docker 镜像</span></span><br><span class="line"><span class="built_in">alias</span> ta=<span class="string">&#x27;tmux attach -t&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> tw=<span class="string">&#x27;tmux split-window&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> twh=<span class="string">&#x27;tmux split-window -h&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> f=<span class="string">&#x27;fastfetch&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> ya=<span class="string">&#x27;yazi&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker开机自启"><a href="#docker开机自启" class="headerlink" title="docker开机自启"></a>docker开机自启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置docker-pull代理"><a href="#设置docker-pull代理" class="headerlink" title="设置docker pull代理"></a>设置docker pull代理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /etc/systemd/system/docker.service.d</span><br><span class="line"><span class="built_in">tee</span> /etc/systemd/system/docker.service.d/http-proxy.conf &gt; /dev/null &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">&quot;HTTP_PROXY=http://127.0.0.1:10808&quot;</span></span><br><span class="line">Environment=<span class="string">&quot;HTTPS_PROXY=http://127.0.0.1:10808&quot;</span></span><br><span class="line">Environment=<span class="string">&quot;NO_PROXY=localhost,127.0.0.1&quot;</span></span><br><span class="line">EOF</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuyuqinlan.top">zhuyuqinlan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuyuqinlan.top/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(archlinux)/">https://zhuyuqinlan.top/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(archlinux)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuyuqinlan.top" target="_blank">牛战士空间站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ArchLinux/">ArchLinux</a><a class="post-meta__tags" href="/tags/Sway/">Sway</a><a class="post-meta__tags" href="/tags/Windows/">Windows</a><a class="post-meta__tags" href="/tags/WSL/">WSL</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post-share"><div class="social-share" data-image="/null" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/19/aria2%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="Aria2 离线下载平台搭建"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Aria2 离线下载平台搭建</div></div><div class="info-2"><div class="info-item-1"> 基于 Aria2 + AriaNg + Nginx 搭建离线下载平台，支持 BT&#x2F;PT 下载。 参考链接：  cnblogs 教程 right.com.cn 论坛   systemd1234567891011121314[Unit]Description=Aria2 Download ManagerAfter=network.target[Service]Type=simpleUser=zhuyuqinlanGroup=zhuyuqinlanExecStart=/usr/bin/aria2c --conf-path=/etc/aria2/aria2.confRestart=on-failureRestartSec=5[Install]WantedBy=multi-user.target  aria2.conf12345678910111213141516171819202122232425262728## 进度保存相关input-file=/home/zhuyuqinlan/.aria2/aria2.sessionsave-session=/home/zhuyuqin...</div></div></div></a><a class="pagination-related" href="/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(ubuntu)/" title="安装配置 WSL2（Ubuntu）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">安装配置 WSL2（Ubuntu）</div></div><div class="info-2"><div class="info-item-1"> 在 Windows 上安装 WSL2 并配置 Ubuntu 24.04 发行版。  下载并安装12wsl --list --onlinewsl --install -d Ubuntu-24.04  .wslconfig（放在windows用户目录下）1234567891011[wsl2]memory=4GB                        # 分配给 WSL 2 的内存大小（上限）processors=2                  # 分配给 WSL 2 的 CPU 核心数 （上限） [experimental]autoMemoryReclaim=gradual         # 开启自动回收内存，可在 gradual, dropcache, disabled 之间选择networkingMode=mirrored           # 开启镜像网络dnsTunneling=true                 # 开启 DNS Tunnelingfirewall=true                     # 开启 Windows 防火墙a...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(ubuntu)/" title="安装配置 WSL2（Ubuntu）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">安装配置 WSL2（Ubuntu）</div></div><div class="info-2"><div class="info-item-1"> 在 Windows 上安装 WSL2 并配置 Ubuntu 24.04 发行版。  下载并安装12wsl --list --onlinewsl --install -d Ubuntu-24.04  .wslconfig（放在windows用户目录下）1234567891011[wsl2]memory=4GB                        # 分配给 WSL 2 的内存大小（上限）processors=2                  # 分配给 WSL 2 的 CPU 核心数 （上限） [experimental]autoMemoryReclaim=gradual         # 开启自动回收内存，可在 gradual, dropcache, disabled 之间选择networkingMode=mirrored           # 开启镜像网络dnsTunneling=true                 # 开启 DNS Tunnelingfirewall=true                     # 开启 Windows 防火墙a...</div></div></div></a><a class="pagination-related" href="/2026/07/19/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEWSL2(debian)/" title="安装配置 WSL2（Debian）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">安装配置 WSL2（Debian）</div></div><div class="info-2"><div class="info-item-1"> 在 Windows 上安装 WSL2 并配置 Debian 发行版，包括 Docker、镜像源等。  下载并安装12wsl --list --onlinewsl --install -d Debian  .wslconfig（放在 Windows 用户目录下）1234567891011[wsl2]memory=4GB                        # 分配给 WSL 2 的内存大小（上限）processors=2                  # 分配给 WSL 2 的 CPU 核心数 （上限） [experimental]autoMemoryReclaim=gradual         # 开启自动回收内存，可在 gradual, dropcache, disabled 之间选择networkingMode=mirrored           # 开启镜像网络dnsTunneling=true                 # 开启 DNS Tunnelingfirewall=true                     # 开启 Windows...</div></div></div></a><a class="pagination-related" href="/2026/07/19/ArchLinux%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%BB%A5Sway%E4%B8%BA%E4%BE%8B/" title="Arch Linux 安装及配置（以 Sway 为例）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">Arch Linux 安装及配置（以 Sway 为例）</div></div><div class="info-2"><div class="info-item-1"> 参考 Arch Linux 安装指南 进行系统安装。本文记录实体机安装 Arch Linux 后的桌面环境（Sway）及常用软件配置。  配置 swap 目录 用于休眠（告诉系统将内存写到硬盘哪个分区）。休眠需要 swap 大小 ≥ 内存大小。  检查当前 swap12swapon --showfree -h  配置 resume 参数内核启动时需要知道从哪个 swap 分区恢复。在 /etc/default/grub 中修改启动参数（/dev/nvme0n1p3 替换为你的 swap 分区）： 1GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet resume=/dev/nvme0n1p3&quot;  更新 GRUB 配置： 1sudo grub-mkconfig -o /boot/grub/grub.cfg  基础桌面环境配置 archlinuxcn 镜像源编辑 /etc/pacman.conf，在末尾加入： 123[archlinuxcn]SigLevel = Optional TrustedOnlyServer = http://repo.a...</div></div></div></a><a class="pagination-related" href="/2026/07/19/Tauri%202%E5%BC%80%E5%8F%91%E5%AE%89%E5%8D%93%EF%BC%88windows%EF%BC%89/" title="Tauri 2 开发安卓应用（Windows 环境搭建）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">Tauri 2 开发安卓应用（Windows 环境搭建）</div></div><div class="info-2"><div class="info-item-1"> 本文记录在 Windows 上搭建 Tauri 2 Android 开发环境的步骤。下载地址：Android Studio 官网  使用 Android Studio 中的 SDK Manager 安装以下内容 Android SDK Platform Android SDK Platform-Tools NDK (Side by side) Android SDK Build-Tools Android SDK Command-line Tools  临时设置环境变量12345$env:JAVA_HOME = &quot;C:\Program Files\Android\Android Studio\jbr&quot;$env:ANDROID_HOME = &quot;$env:LocalAppData\Android\Sdk&quot;$VERSION = Get-ChildItem -Name &quot;$env:LocalAppData\Android\Sdk\ndk&quot;$env:NDK_HOME = &quot;$env:LocalAppData\Andro...</div></div></div></a><a class="pagination-related" href="/2026/07/19/Windows%E5%AE%89%E8%A3%85mysql%E4%BE%BF%E6%90%BA%E7%89%88/" title="Windows 安装 MySQL 便携版"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">Windows 安装 MySQL 便携版</div></div><div class="info-2"><div class="info-item-1"> 无安装程序，解压即用的 MySQL 便携版部署方式。下载地址：MySQL Downloads  准备my.ini 这个文件放到mysql安装目录下例如我这里是：D:&#x2F;zhuyuqin&#x2F;dev&#x2F;docker&#x2F;lemall&#x2F;mysql-8.0.45-winx64  12345678910111213141516171819202122232425262728293031[mysqld]# MySQL 安装目录（替换为你的实际路径）basedir = D:/zhuyuqin/dev/docker/lemall/mysql-8.0.45-winx64# 数据存储目录（会自动创建，路径需与 basedir 对应）datadir = D:/zhuyuqin/dev/docker/lemall/mysql-8.0.45-winx64/data# 端口号（默认3306，可自定义）port = 3306# 字符集（支持 emoji 需用 utf8mb4）character-set-server = utf8mb4# 最大连接数max_connec...</div></div></div></a><a class="pagination-related" href="/2026/07/19/%E7%9A%8E%E6%9C%88%E8%BF%9ELinux%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%89%88%E9%85%8D%E7%BD%AE/" title="皎月连 Linux 二进制版配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-19</div><div class="info-item-2">皎月连 Linux 二进制版配置</div></div><div class="info-2"><div class="info-item-1"> 在 Linux 服务器上配置皎月连（NatPierce）内网穿透工具，使用 systemd 管理服务。  下载从 官网下载页面 获取 Linux 二进制版本。 配置并运行 创建目录 /opt/natpierce  1mkdir -p /opt/natpierce   将解压后的二进制文件移动到 /opt/natpierce  赋予执行权限   1chmod +x /opt/natpierce/natpierce   配置 systemd 服务  创建 service 配置文件： 1vim /etc/systemd/system/natpierce.service  写入以下内容： 1234567891011121314151617[Unit]Description=Natpierce Tunnel ServiceAfter=network-online.targetWants=network-online.target[Service]WorkingDirectory=/opt/natpierceExecStart=/opt/natpierce/natpierceRestart...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">zhuyuqinlan</div><div class="author-info-description">zhuyuqinlan的博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%BC%80-PowerShell%EF%BC%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">打开 PowerShell（管理员权限）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85WSL"><span class="toc-number">2.</span> <span class="toc-text">安装WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4WSL%E7%89%88%E6%9C%AC%E4%B8%BAWSL2"><span class="toc-number">3.</span> <span class="toc-text">设置默认WSL版本为WSL2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E5%8F%91%E8%A1%8C%E7%89%88"><span class="toc-number">4.</span> <span class="toc-text">查看可用发行版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Linux"><span class="toc-number">5.</span> <span class="toc-text">安装Linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArchLinux%E9%85%8D%E7%BD%AE"><span class="toc-number">7.</span> <span class="toc-text">ArchLinux配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#archLinuxcn%E9%95%9C%E5%83%8F"><span class="toc-number">7.1.</span> <span class="toc-text">archLinuxcn镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E5%8C%85"><span class="toc-number">7.2.</span> <span class="toc-text">安装常用包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wslconfig%EF%BC%88%E6%94%BE%E5%9C%A8-Windows-%E7%94%A8%E6%88%B7%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%89"><span class="toc-number">7.3.</span> <span class="toc-text">.wslconfig（放在 Windows 用户目录下）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%A2%9Esudo%E7%94%A8%E6%88%B7-%E5%8F%AF%E9%80%89"><span class="toc-number">7.4.</span> <span class="toc-text">新增sudo用户(可选)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%81%E8%AE%B8wheel%E7%BB%84%E4%BD%BF%E7%94%A8sudo-%E5%8F%AF%E9%80%89"><span class="toc-number">7.5.</span> <span class="toc-text">允许wheel组使用sudo(可选)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEwsl"><span class="toc-number">7.6.</span> <span class="toc-text">设置wsl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83"><span class="toc-number">7.7.</span> <span class="toc-text">设置语言环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bash-profile"><span class="toc-number">8.</span> <span class="toc-text">.bash_profile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bashrc"><span class="toc-number">9.</span> <span class="toc-text">.bashrc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-number">10.</span> <span class="toc-text">docker开机自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEdocker-pull%E4%BB%A3%E7%90%86"><span class="toc-number">11.</span> <span class="toc-text">设置docker pull代理</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19/ArchLinux%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%BB%A5Sway%E4%B8%BA%E4%BE%8B/" title="Arch Linux 安装及配置（以 Sway 为例）">Arch Linux 安装及配置（以 Sway 为例）</a><time datetime="2026-07-19T10:48:10.000Z" title="发表于 2026-07-19 18:48:10">2026-07-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19/docker%E6%90%AD%E5%BB%BAcpp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BB%A5opencv+java%E4%B8%BA%E4%BE%8B/" title="Docker 搭建 C++ 开发环境（OpenCV + Java 为例）">Docker 搭建 C++ 开发环境（OpenCV + Java 为例）</a><time datetime="2026-07-19T10:47:50.000Z" title="发表于 2026-07-19 18:47:50">2026-07-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19/mkcert+nginx%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91https%E8%AE%BF%E9%97%AE/" title="mkcert + Nginx 实现内网 HTTPS 访问">mkcert + Nginx 实现内网 HTTPS 访问</a><time datetime="2026-07-19T10:47:40.000Z" title="发表于 2026-07-19 18:47:40">2026-07-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19/%E7%9A%8E%E6%9C%88%E8%BF%9ELinux%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%89%88%E9%85%8D%E7%BD%AE/" title="皎月连 Linux 二进制版配置">皎月连 Linux 二进制版配置</a><time datetime="2026-07-19T10:47:35.000Z" title="发表于 2026-07-19 18:47:35">2026-07-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19/aria2%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="Aria2 离线下载平台搭建">Aria2 离线下载平台搭建</a><time datetime="2026-07-19T10:47:25.000Z" title="发表于 2026-07-19 18:47:25">2026-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhuyuqinlan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.6.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
