@@ -4,9 +4,9 @@
 
 # 网站基本信息
 # 标题：网站名称，会显示在浏览器标签页和网站头部
-title: zhuyuqinlan's Blog
+title: 牛战士空间站
 # 副标题：显示在标题下方，支持 HTML 标签
-subtitle: '(ง •_•)ง  (ง •̀_•́)ง  ٩(◕‿◕)۶'
+subtitle: zhuyuqinlan's Blog
 # 描述：网站描述，用于 SEO，长度建议在 150 字符以内
 description: 'zhuyuqinlan的博客'
 # 关键词：用于 SEO，多个关键词用逗号分隔
@@ -21,7 +21,7 @@ timezone: 'Asia/Shanghai'
 # 网址设置
 ## 在这里设置你的网站 URL。例如使用 GitHub Pages 时设为 'https://username.github.io/project'
 ## 如果使用自定义域名，填写你的域名（建议包含协议头 http:// 或 https://）
-url: http://zhuyuqinlan.top
+url: https://zhuyuqinlan.top
 # 永久链接格式：:year=年, :month=月, :day=日, :title=标题, :hash=文件哈希
 permalink: :year/:month/:day/:title/
 # 永久链接默认值：为permalink中的变量设置默认值

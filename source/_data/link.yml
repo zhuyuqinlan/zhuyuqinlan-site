@@ -1,0 +1,15 @@
+- class_name: 友情链接
+  class_desc: 志强
+  link_list:
+    - name: 志强空间站
+      link: http://voking.cn
+      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
+      descr: 友情链接
+
+- class_name: 网站
+  class_desc: 值得推荐的网站
+  link_list:
+    - name: bilibili
+      link: https://www.bilibili.com
+      avatar: https://ei.phncdn.com/www-static/images/pornhub_logo_straight.svg
+      descr: 视频网站
