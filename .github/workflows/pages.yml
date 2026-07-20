@@ -38,7 +38,3 @@ jobs:
           publish_dir: ./public
           cname: zhuyuqinlan.top
 
-      - name: Enforce HTTPS
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api repos/${{ github.repository }}/pages --method PATCH -f https_enforced=true
