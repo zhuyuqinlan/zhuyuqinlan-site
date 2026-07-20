@@ -12,12 +12,10 @@ nav:
   # 是否固定导航栏
   fixed: false
 
+# Menu 目錄
 menu:
-  # 首页: / || fas fa-home
-  # 列表||fas fa-list:
-  #   音乐: /music/ || fas fa-music
-  #   电影: /movies/ || fas fa-video
-
+  主页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
 # --------------------------------------
 # 代码块设置
 # --------------------------------------
@@ -68,7 +66,7 @@ disable_top_img: false
 default_top_img: img/banner.jpg
 
 # 主页的横幅图片
-index_img:
+index_img: img/banner.jpg
 
 # 归档页的横幅图片
 archive_img:
@@ -95,7 +93,7 @@ footer_img: false
 # 网站背景
 # 可以设置为颜色或图片
 # 图片格式: url(http://xxxxxx.com/xxx.jpg)
-background:
+background: img/back.jpg
 
 # 封面设置
 cover:
@@ -292,7 +290,7 @@ footer:
     # 是否启用所有者显示
     enable: true
     # 网站创建年份
-    since: 2019
+    since: 2026
   # 自定义文本
   custom_text:
   # 主题和框架的版权声明
