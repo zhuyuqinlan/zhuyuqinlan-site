@@ -93,7 +93,7 @@ footer_img: false
 # 网站背景
 # 可以设置为颜色或图片
 # 图片格式: url(http://xxxxxx.com/xxx.jpg)
-background: img/back.jpg
+background: img/back.png
 
 # 封面设置
 cover:
