@@ -1,12 +1,11 @@
 ---
-title: 友情链接
+title: 申请友情链接
 published: 2025-06-12
 description: 申请友链的要看看哦
 tags:
   - 友情链接
-category: 我得
+category: 博客
 draft: false
-lang: zh-CN
 ---
 # 申请友链
 
@@ -23,11 +22,6 @@ lang: zh-CN
 :::warning
 请先将我站添加至贵站
 :::
-
-- 叁睦のBlog
-- https://blog.3mua.cn
-- https://3mua.cn/imgs/avat.png
-- 无限进步
 
 感谢您的配合！
 
