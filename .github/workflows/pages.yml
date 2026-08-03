@@ -1,4 +1,4 @@
-name: Deploy Hexo
+name: Deploy blog
 
 on:
   push:
@@ -23,13 +23,13 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: yarn
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Generate
-        run: yarn build
+        run: pnpm build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
