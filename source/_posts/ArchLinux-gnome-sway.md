@@ -1,6 +1,6 @@
 ---
 title: ArchLinux初始化（gnome+sway）
-date: 2026-07-19 18:48:10
+date: 2026-08-03 10:48:10
 tags: [ArchLinux, Sway, Wayland, gnome]
 categories: [教程]
 ---
