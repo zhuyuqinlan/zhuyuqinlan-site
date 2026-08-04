@@ -2,7 +2,7 @@
 title: Windows 安装 MySQL 便携版
 published: 2026-07-19 18:46:10
 tags: [MySQL, 数据库, Windows, 便携版]
-categories: [教程]
+category: 开发
 ---
 
 > 无安装程序，解压即用的 MySQL 便携版部署方式。

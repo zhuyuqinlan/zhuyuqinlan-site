@@ -2,7 +2,7 @@
 title: Docker 搭建 C++ 开发环境（OpenCV + Java 为例）
 published: 2026-07-19 18:47:50
 tags: [Docker, C++, OpenCV, Java, CMake]
-categories: [教程]
+category: 开发
 ---
 
 > 使用 Docker Compose 搭建 C++ 开发容器，集成 OpenCV 和 OpenJDK，通过 SSH 连接开发。
@@ -25,7 +25,8 @@ services:
 ```
 
 ### Dockerfile
-```bash
+
+```dockerfile
 # 使用国内加速镜像，例如阿里云 ubuntu
 FROM ubuntu:22.04
 

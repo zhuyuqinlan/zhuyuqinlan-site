@@ -2,7 +2,7 @@
 title: Arch Linux 安装及配置（以 Sway 为例）
 published: 2026-07-19 18:48:10
 tags: [ArchLinux, Sway, Wayland, 桌面环境, PipeWire]
-categories: [教程]
+category: 桌面
 ---
 
 > 参考 [Arch Linux 安装指南](https://arch.icekylin.online/) 进行系统安装。

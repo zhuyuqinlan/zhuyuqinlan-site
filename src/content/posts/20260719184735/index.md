@@ -2,7 +2,7 @@
 title: 皎月连 Linux 二进制版配置
 published: 2026-07-19 18:47:35
 tags: [皎月连, 内网穿透, Linux, systemd]
-categories: [教程]
+category: 网络
 ---
 
 > 在 Linux 服务器上配置皎月连（NatPierce）内网穿透工具，使用 systemd 管理服务。

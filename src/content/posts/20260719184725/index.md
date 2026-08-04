@@ -2,7 +2,7 @@
 title: Aria2 离线下载平台搭建
 published: 2026-07-19 18:47:25
 tags: [Aria2, Nginx, Docker, 下载, PT]
-categories: [教程]
+category: 网络
 ---
 
 > 基于 Aria2 + AriaNg + Nginx 搭建离线下载平台，支持 BT/PT 下载。

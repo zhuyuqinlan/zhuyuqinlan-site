@@ -2,7 +2,7 @@
 title: 安装配置 WSL2（Debian）
 published: 2026-07-19 18:47:05
 tags: [WSL, Debian, Docker, Linux, Windows]
-categories: [教程]
+category: 系统
 ---
 
 > 在 Windows 上安装 WSL2 并配置 Debian 发行版，包括 Docker、镜像源等。

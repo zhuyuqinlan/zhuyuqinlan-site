@@ -2,10 +2,11 @@
 title: Debian 12 安装 shadowsocks-libev
 published: 2026-07-19 18:46:30
 tags: [Debian, shadowsocks, 代理, 网络]
-categories: [教程]
+category: 网络
 ---
 
 > 在 Debian 12 上通过 apt 安装 shadowsocks-libev 并配置 systemd 自启。
+
 ```bash
 apt update
 apt install -y shadowsocks-libev vim
@@ -18,16 +19,17 @@ vim /etc/shadowsocks-libev/config.json
 ```
 
 ### 输入
-```bash
+
+```json
 {
-    "server":"0.0.0.0",
-    "server_port":30201,
-    "password":"你的强密码123",
-    "timeout":300,
-    "method":"aes-256-gcm",
+    "server": "0.0.0.0",
+    "server_port": 30201,
+    "password": "你的强密码123",
+    "timeout": 300,
+    "method": "aes-256-gcm",
     "fast_open": false,
-    "nameserver":"8.8.8.8",
-    "mode":"tcp_and_udp"
+    "nameserver": "8.8.8.8",
+    "mode": "tcp_and_udp"
 }
 ```
 
@@ -36,5 +38,21 @@ vim /etc/shadowsocks-libev/config.json
 systemctl enable shadowsocks-libev
 systemctl start shadowsocks-libev
 systemctl status shadowsocks-libev
+```
+
+## 防火墙放行
+
+```bash
+ufw allow 30201/tcp
+```
+
+## 客户端连接示例
+
+```ini
+# Shadowrocket / Clash Meta 等客户端配置
+server: 你的服务器IP
+port: 30201
+password: 你的强密码123
+method: aes-256-gcm
 ```
 

@@ -2,7 +2,7 @@
 title: 安装配置 WSL2（Ubuntu）
 published: 2026-07-19 18:47:10
 tags: [WSL, Ubuntu, Linux, Windows]
-categories: [教程]
+category: 系统
 ---
 
 > 在 Windows 上安装 WSL2 并配置 Ubuntu 24.04 发行版。
@@ -44,5 +44,17 @@ EOF
 
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
+
+## 验证安装
+
+```bash
+wsl -d Ubuntu-24.04
+```
+
+进入 WSL 后确认发行版信息：
+
+```bash
+lsb_release -a
 ```
 

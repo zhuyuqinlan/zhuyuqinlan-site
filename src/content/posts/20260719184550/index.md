@@ -2,7 +2,7 @@
 title: Docker 部署 OpenList 文件列表服务
 published: 2026-07-19 18:45:50
 tags: [Docker, OpenList, 文件管理, 网盘]
-categories: [教程]
+category: 开发
 ---
 
 > [OpenList](https://github.com/OpenListTeam/OpenList) 是一个支持多种存储的文件列表程序，可用于替代 Alist。
@@ -34,6 +34,14 @@ services:
 ## init
 ```bash
 #!/bin/bash
-mkdir data
+mkdir -p data
 ```
+
+## 运行
+
+```bash
+docker-compose up -d
+```
+
+首次访问 `http://localhost:5244`，根据提示设置管理员账号和密码。
 

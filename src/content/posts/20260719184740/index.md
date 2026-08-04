@@ -2,7 +2,7 @@
 title: mkcert + Nginx 实现内网 HTTPS 访问
 published: 2026-07-19 18:47:40
 tags: [mkcert, Nginx, HTTPS, Docker, 内网]
-categories: [教程]
+category: 网络
 ---
 
 > 使用 mkcert 生成内网可信 SSL 证书，配合 Nginx Docker 容器实现 HTTPS 访问。

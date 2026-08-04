@@ -2,7 +2,7 @@
 title: ArchLinux初始化（gnome+sway）
 published: 2026-08-03 10:48:10
 tags: [ArchLinux, Sway, Wayland, gnome]
-categories: [教程]
+category: 桌面
 ---
 安装ArchLinux系统可以参考：
 
@@ -20,7 +20,7 @@ sudo pacman -S terminus-font vim
 
 编辑： /etc/vconsole.conf  
 
-```nginx
+```text
 FONT=ter-132b
 ```
 

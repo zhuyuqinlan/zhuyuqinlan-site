@@ -2,7 +2,7 @@
 title: Debian 12 安装 v2rayA
 published: 2026-07-19 18:40:00
 tags: [Debian, v2rayA, 代理, 网络]
-categories: [教程]
+category: 网络
 ---
 
 > 在 Debian 12 上安装 v2rayA 透明代理工具。
@@ -25,6 +25,17 @@ sudo systemctl status v2raya
 ```
 
 Web 管理界面访问 `http://localhost:2017`。
+
+## 导入订阅
+
+在 v2rayA 网页面板中导入你的代理订阅链接即可使用。
+
+## 防火墙放行
+
+```bash
+sudo ufw allow 2017/tcp
+sudo ufw allow 2017/udp
+```
 
 ## 参考
 

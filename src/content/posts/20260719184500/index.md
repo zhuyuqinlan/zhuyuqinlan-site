@@ -2,7 +2,7 @@
 title: Claude Code 安装 MCP Server
 published: 2026-07-19 18:45:00
 tags: [Claude Code, MCP, AI, 开发工具]
-categories: [教程]
+category: 开发
 ---
 
 > 安装 [uv](https://docs.astral.sh/uv/getting-started/installation/) 和 uvx。
