@@ -1,0 +1,60 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+const friends = await getCollection("friends");
+const friendlinkPost = await getEntry("posts", "friendlink");
+---
+
+<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friendsDescription)}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative">
+        <div class="card-base z-10 px-9 py-8 relative w-full">
+            <h1 class="text-3xl font-bold mb-2">{i18n(I18nKey.friends)}</h1>
+            <p class="text-black/60 dark:text-white/60 mb-8">{i18n(I18nKey.friendsDescription)}</p>
+
+            {friendlinkPost && (
+                <a href={`/post/${friendlinkPost.slug}/`}
+                   class="card-base group flex items-center gap-4 p-4 mb-6 hover:scale-[1.01] active:scale-[0.99]"
+                >
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-[var(--primary)] text-white flex-shrink-0">
+                        <span class="text-xl">✉️</span>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-bold truncate group-hover:underline">
+                            {friendlinkPost.data.title}
+                        </div>
+                        <p class="text-sm text-black/60 dark:text-white/60 line-clamp-2 mt-1">
+                            {friendlinkPost.data.description}
+                        </p>
+                    </div>
+                </a>
+            )}
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {friends.map((friend) => (
+                    <a href={friend.data.url} target="_blank" rel="noopener noreferrer"
+                       class="card-base group flex items-center gap-4 p-4 hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                        {friend.data.avatar && (
+                            <img src={friend.data.avatar} alt={friend.data.name}
+                                 class="w-12 h-12 rounded-full object-cover flex-shrink-0 bg-[var(--page-bg)]"
+                            />
+                        )}
+                        <div class="min-w-0">
+                            <div class="font-bold text-[var(--primary)] truncate group-hover:underline">
+                                {friend.data.name}
+                            </div>
+                            {friend.data.description && (
+                                <p class="text-sm text-black/60 dark:text-white/60 line-clamp-2 mt-1">
+                                    {friend.data.description}
+                                </p>
+                            )}
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </div>
+</MainGridLayout>

@@ -45,8 +45,8 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.About,
 		{
 			name: "友情链接",
-			url: "https://zhuyuqinlan.top#friends", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			url: "/friends/",
+			external: false,
 		},
 		{
 			name: "开往",
