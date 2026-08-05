@@ -32,6 +32,7 @@ export const tr: Translation = {
 
 	[Key.more]: "Daha Fazla",
 
+	[Key.copyright]: "Telif hakkı",
 	[Key.author]: "Yazar",
 	[Key.publishedAt]: "Yayınlanma:",
 	[Key.license]: "Lisans",

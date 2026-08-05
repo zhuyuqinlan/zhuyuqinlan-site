@@ -59,18 +59,18 @@ draft: false
 #### 2026-08-05（周三）🏢 — Java 运行机制
 
 **学习内容：**
-- [ ] Java 程序完整执行流程：`.java` → `javac` → `.class` → `ClassLoader` → JVM 执行
-- [ ] JDK、JRE、JVM 三者的定位与区别
-- [ ] class 文件结构概览（魔数、版本号、常量池）
-- [ ] JIT 编译（C1/C2）与解释执行的区别
+- [x] Java 程序完整执行流程：`.java` → `javac` → `.class` → `ClassLoader` → JVM 执行
+- [x] JDK、JRE、JVM 三者的定位与区别
+- [x] class 文件结构概览（魔数、版本号、常量池）
+- [x] JIT 编译（C1/C2）与解释执行的区别
 
 **实践任务：**
-- [ ] 编写 `HelloWorld.java`，使用 `javac` 编译、`java` 运行
-- [ ] 使用 `javap -c -verbose` 反编译 class 文件，逐行分析字节码
-- [ ] 使用 `java -XX:+PrintCompilation` 观察 JIT 编译
+- [x] 编写 `HelloWorld.java`，使用 `javac` 编译、`java` 运行
+- [x] 使用 `javap -c -verbose` 反编译 class 文件，逐行分析字节码
+- [x] 使用 `java -XX:+PrintCompilation` 观察 JIT 编译
 
 **输出成果：**
-- [ ] 笔记：《Java 程序从编译到运行的全过程》
+- [x] 笔记：《Java 程序从编译到运行的全过程》
 
 ---
 

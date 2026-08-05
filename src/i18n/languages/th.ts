@@ -32,6 +32,7 @@ export const th: Translation = {
 
 	[Key.more]: "ดูเพิ่ม",
 
+	[Key.copyright]: "ลิขสิทธิ์",
 	[Key.author]: "ผู้เขียน",
 	[Key.publishedAt]: "เผยแพร่เมื่อ",
 	[Key.license]: "สัญญาอนุญาต",
