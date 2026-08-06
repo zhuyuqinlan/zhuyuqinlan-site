@@ -13,6 +13,8 @@ image: banner.png
 >
 > [https://zhuanlan.zhihu.com/p/25308291469](https://zhuanlan.zhihu.com/p/25308291469)
 >
+我的配置
+> https://github.com/zhuyuqinlan/dotfiles.git
 
 ## 安装tty字体并设置大号字体
 ```bash
@@ -51,7 +53,7 @@ sudo reboot
 
 ## 安装sway
 ```bash
-sudo pacman -S sway polkit-gnome swayidle cliphist waybar alacritty wofi stow imv alsa-utils proxychains-ng git docker docker-compose podman gammastep patch base-develparu fastfetch firefox wl-clipboard swappy firefox-i18n-zh-cn noto-fonts-cjk ttf-arimo-nerd otf-font-awesome ttf-jetbrains-mono-nerd ttf-dejavu ttf-liberation brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+sudo pacman -S sway polkit-gnome swayidle cliphist waybar alacritty wofi stow imv alsa-utils proxychains-ng git docker docker-compose podman patch base-develparu fastfetch firefox wl-clipboard swappy firefox-i18n-zh-cn noto-fonts-cjk ttf-arimo-nerd otf-font-awesome ttf-jetbrains-mono-nerd ttf-dejavu ttf-liberation brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal-gtk mako
 ```
 
 ```bash
