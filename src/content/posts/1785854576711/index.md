@@ -77,18 +77,18 @@ draft: false
 #### 2026-08-06（周四）🏢 — 面向对象进阶
 
 **学习内容：**
-- [ ] 封装、继承、多态的本质与设计意图
-- [ ] 接口 vs 抽象类：使用场景与 JDK 演进（default 方法）
-- [ ] 组合优于继承原则、Liskov 替换原则
-- [ ] 访问修饰符：`private`/`default`/`protected`/`public` 的包级可见性规则
+- [x] 封装、继承、多态的本质与设计意图
+- [x] 接口 vs 抽象类：使用场景与 JDK 演进（default 方法）
+- [x] 组合优于继承原则、Liskov 替换原则
+- [x] 访问修饰符：`private`/`default`/`protected`/`public` 的包级可见性规则
 
 **实践任务：**
-- [ ] 设计用户系统：`User`（抽象基类）→ `AdminUser` / `NormalUser`
-- [ ] 用接口定义 `Authenticatable`、`Authorizable` 行为
-- [ ] 验证多态：父类引用指向不同子类对象的方法调用差异
+- [x] 设计用户系统：`User`（抽象基类）→ `AdminUser` / `NormalUser`
+- [x] 用接口定义 `Authenticatable`、`Authorizable` 行为
+- [x] 验证多态：父类引用指向不同子类对象的方法调用差异
 
 **输出成果：**
-- [ ] 代码提交 GitHub
+- [x] 代码提交 GitHub
 
 ---
 
