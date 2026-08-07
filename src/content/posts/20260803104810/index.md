@@ -53,7 +53,7 @@ sudo reboot
 
 ## 安装sway
 ```bash
-sudo pacman -S sway polkit-gnome swayidle cliphist waybar alacritty wofi stow imv alsa-utils proxychains-ng git docker docker-compose podman patch base-develparu fastfetch firefox wl-clipboard swappy firefox-i18n-zh-cn noto-fonts-cjk ttf-arimo-nerd otf-font-awesome ttf-jetbrains-mono-nerd ttf-dejavu ttf-liberation brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal-gtk mako
+sudo pacman -S sway polkit-gnome swayidle cliphist waybar alacritty wofi stow imv alsa-utils proxychains-ng git docker docker-compose podman patch base-develparu fastfetch firefox wl-clipboard swappy firefox-i18n-zh-cn noto-fonts-cjk ttf-arimo-nerd otf-font-awesome ttf-jetbrains-mono-nerd ttf-dejavu ttf-liberation brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal-gtk mako new-look qt5ct qt6ct
 ```
 
 ```bash
