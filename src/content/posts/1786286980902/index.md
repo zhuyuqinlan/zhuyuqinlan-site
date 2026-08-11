@@ -32,9 +32,12 @@ https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E 
 sudo dnf clean all
 sudo dnf makecache
 ```
-## 安装jetbrains-mono字体
+## 安装jetbrains-mono-nerd字体
 ```bash
-sudo dnf install jetbrains-mono-fonts
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.0/JetBrainsMono.zip
+mkdir -p ~/.local/share/fonts
+unzip -d ~/.local/share/fonts JetBrainsMono.zip 
+rm JetBrainsMono.zip 
 ```
 ### 刷新字体缓存&检查
 ```bash
@@ -109,9 +112,119 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```bash
 sudo reboot
 ```
+## 安装开发工具
+### 安装开发包
+```bash
+sudo dnf install @development-tools
+```
+### jdk
+* 下载脚本vim install-jdk.sh
+```bash
+#!/bin/bash
+# ========================================
+# JDK安装根目录
+# ========================================
+JDK_ROOT="$HOME/program/jdk"
+mkdir -p "${JDK_ROOT}"
+download_and_extract() {
+    local tar_file="$1"
+    local url="$2"
+    local target_dir="$3"
+    echo "========================================"
+    echo "开始安装: ${tar_file}"
+    echo "安装位置: ${target_dir}"
+    # 下载
+    curl -L --progress-bar -o "${tar_file}" "${url}"
+    if [ $? -ne 0 ]; then
+        echo "❌ 下载失败: ${tar_file}"
+        return 1
+    fi
+    echo "✅ 下载完成，开始解压"
+    # 创建目标目录
+    mkdir -p "${target_dir}"
+    # 解压
+    tar -zxf "${tar_file}" \
+        --strip-components=1 \
+        -C "${target_dir}"
+    if [ $? -ne 0 ]; then
+        echo "❌ 解压失败: ${tar_file}"
+        return 1
+    fi
+    echo "✅ 安装完成: ${target_dir}"
+    rm -f "${tar_file}"
+}
+# ========================================
+# JDK下载地址
+# ========================================
+download_and_extract \
+"jdk-8.tar.gz" \
+"https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u502b07.tar.gz" \
+"${JDK_ROOT}/jdk8"
 
+download_and_extract \
+"jdk-11.tar.gz" \
+"https://mirrors.tuna.tsinghua.edu.cn/Adoptium/11/jdk/x64/linux/OpenJDK11U-jdk_x64_linux_hotspot_11.0.32_9.tar.gz" \
+"${JDK_ROOT}/jdk11"
+
+download_and_extract \
+"jdk-17.tar.gz" \
+"https://mirrors.tuna.tsinghua.edu.cn/Adoptium/17/jdk/x64/linux/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20_8.tar.gz" \
+"${JDK_ROOT}/jdk17"
+
+download_and_extract \
+"jdk-21.tar.gz" \
+"https://mirrors.tuna.tsinghua.edu.cn/Adoptium/21/jdk/x64/linux/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12_8.tar.gz" \
+"${JDK_ROOT}/jdk21"
+
+download_and_extract \
+"jdk-25.tar.gz" \
+"https://mirrors.tuna.tsinghua.edu.cn/Adoptium/25/jdk/x64/linux/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4_7.tar.gz" \
+"${JDK_ROOT}/jdk25"
+
+echo
+echo "========================================"
+echo "🎉 全部安装完成"
+echo "JDK目录:"
+echo
+ls -la "${JDK_ROOT}"
+```
+* 配置环境变量
+```bash
+export JAVA_HOME=$HOME/program/jdk/jdk17
+export PATH=$JAVA_HOME/bin:$PATH
+```
+### fnm
+```bash
+curl -fsSL https://fnm.vercel.app/install | bash
+```
+### uv maven
+```bash
+sudo dnf install uv maven
+```
+### rust
+```bash
+sudo dnf install rustup
+rustup-init
+```
+## dotfiles
+> https://github.com/zhuyuqinlan/dotfiles
+
+### 安装stow
+```bash
+sudo dnf install stow
+```
 ## zsh配置
 ### 安装zsh
 ```bash
-sudo dnf install zsh fzf eza
+sudo dnf install zsh fzf eza zsh-autosuggestions zsh-syntax-highlighting
+```
+### 同步配置
+```bash
+cd ~/dotfiles
+stow zsh
+```
+### 设置为默认的shell
+```bash
+chsh -s /usr/bin/zsh
+echo $SHELL
 ```
