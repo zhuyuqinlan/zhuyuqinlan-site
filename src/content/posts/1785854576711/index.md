@@ -37,10 +37,10 @@ draft: false
 
 | 阶段 | 时间范围 | 核心目标 | 技术关键词 | 最终产出 |
 |------|----------|----------|------------|----------|
-| **第一阶段：Java 基础强化 + Linux 入门** | 08-05 ~ 09-06 | 补齐 Java 核心基础，深入理解集合、泛型、Java 8+ 特性；掌握 Linux 常用命令与 IO 模型 | OOP、集合、泛型、Stream、异常、IO/NIO、Linux、Shell | Java 基础 100 问自测、手写集合类、源码阅读笔记、Linux 运维清单 |
-| **第二阶段：JVM + 并发编程** | 09-07 ~ 10-06 | 理解 JVM 运行机制与并发编程底层原理 | JMM、GC、类加载、synchronized、AQS、线程池、CAS | GC 调优笔记、手写线程池、并发工具类总结、AQS 源码分析 |
-| **第三阶段：数据库 + 缓存 + Spring 生态 + 分布式** | 10-07 ~ 11-01 | 掌握 MySQL 原理与优化、Redis 应用、Spring Boot/Cloud 深度使用、分布式系统设计 | B+树、MVCC、索引优化、缓存、MQ、Spring Boot/Cloud、分布式事务、分布式锁 | 慢查询优化案例、缓存系统、Spring Boot 脚手架、微服务实战项目 |
-| **第四阶段：高并发实战 + 容器化** | 11-02 ~ 11-09 | 综合运用所学技术，完成高并发秒杀系统，落地 Docker + K8s 部署 | 分布式锁、限流、幂等、MQ 削峰、Docker、K8s、HPA | 秒杀系统项目、压测报告、架构设计文档、K8s 部署文件 |
+| **第一阶段：Java 基础强化 + Linux 入门** | 08-05 ~ 09-07 | 补齐 Java 核心基础，深入理解集合、泛型、Java 8+ 特性；掌握 Linux 常用命令与 IO 模型 | OOP、集合、泛型、Stream、异常、IO/NIO、Linux、Shell | Java 基础 100 问自测、手写集合类、源码阅读笔记、Linux 运维清单 |
+| **第二阶段：JVM + 并发编程** | 09-08 ~ 10-07 | 理解 JVM 运行机制与并发编程底层原理 | JMM、GC、类加载、synchronized、AQS、线程池、CAS | GC 调优笔记、手写线程池、并发工具类总结、AQS 源码分析 |
+| **第三阶段：数据库 + 缓存 + Spring 生态 + 分布式** | 10-08 ~ 11-02 | 掌握 MySQL 原理与优化、Redis 应用、Spring Boot/Cloud 深度使用、分布式系统设计 | B+树、MVCC、索引优化、缓存、MQ、Spring Boot/Cloud、分布式事务、分布式锁 | 慢查询优化案例、缓存系统、Spring Boot 脚手架、微服务实战项目 |
+| **第四阶段：高并发实战 + 容器化** | 11-03 ~ 11-12 | 综合运用所学技术，完成高并发秒杀系统，落地 Docker + K8s 部署 | 分布式锁、限流、幂等、MQ 削峰、Docker、K8s、HPA | 秒杀系统项目、压测报告、架构设计文档、K8s 部署文件 |
 
 ---
 
@@ -54,7 +54,7 @@ draft: false
 
 ---
 
-### 第一阶段：Java 基础强化 + Linux 入门（08-05 ~ 09-06）
+### 第一阶段：Java 基础强化 + Linux 入门（08-05 ~ 09-07）
 
 #### 2026-08-05（周三）🏢 — Java 运行机制
 
@@ -92,11 +92,30 @@ draft: false
 
 ---
 
----
+#### 2026-08-13（周三）🏢 — 补学 08-08~08-12（一）：Java 集合 + 对象模型 + 泛型
 
-#### 2026-08-19（周三）🏢 — 泛型与反射
+> 08-08 ~ 08-12 因事未完成，以下为补学内容。
 
-**学习内容：**
+**Java 集合（一）：List**
+- [ ] `ArrayList` 底层数组实现、扩容机制（1.5 倍）、`ensureCapacity`
+- [ ] `LinkedList` 双向链表实现、与 `ArrayList` 的性能对比
+- [ ] `fail-fast` 与 `fail-safe` 机制（`modCount` 字段）
+- [ ] `Vector`、`Stack` 的历史与为什么不推荐使用
+
+**Java 集合（二）：Map**
+- [ ] `HashMap` 数据结构：数组 + 链表 + 红黑树
+- [ ] hash 算法：`(h = key.hashCode()) ^ (h >>> 16)` 扰动函数
+- [ ] 扩容机制：两倍扩容 + 元素重 hash（高位决定元素位置）
+- [ ] `TreeMap` 红黑树实现、`LinkedHashMap` 访问顺序与插入顺序
+
+**Java 对象模型**
+- [ ] 对象创建全过程：`new` 指令 → 分配内存 → 初始化 → `<init>`
+- [ ] 对象内存布局：Mark Word、Klass Pointer、实例数据、对齐填充
+- [ ] 引用类型：强引用、软引用、弱引用、虚引用的区别
+- [ ] `this` 关键字的内存语义
+- [ ] `static` 变量的存储位置与生命周期
+
+**泛型与反射**
 - [ ] 泛型的意义：类型安全 + 消除强制类型转换
 - [ ] 类型擦除机制：泛型在编译后变为原始类型
 - [ ] 通配符：`?`、`? extends T`、`? super T`（PECS 原则）
@@ -104,17 +123,61 @@ draft: false
 - [ ] 反射基础：`Class`、`Method`、`Field`、`Constructor`
 
 **实践任务：**
+- [ ] 手写 `MyArrayList`（实现 `add`、`get`、`remove`、扩容逻辑）
+- [ ] 手写 `MyLinkedList`（带头尾哨兵的双向链表）
+- [ ] 手写简易 `MyHashMap`（数组 + 链表，支持 put/get）
+- [ ] 引入 JOL（`org.openjdk.jol:jol-core`）分析对象内存占用
 - [ ] 用反射实现简易 ORM 框架（通过注解 + 反射自动映射 ResultSet）
-- [ ] 分析泛型在编译前后的字节码变化（javap）
+- [ ] JMH 基准测试对比 `ArrayList` vs `LinkedList`（随机访问 / 头插 / 尾插）
 
 **输出成果：**
 - [ ] 代码提交 GitHub
+- [ ] 笔记：《Java 集合与对象模型补学》
 
 ---
 
-#### 2026-08-20（周四）🏢 — Java 8 核心特性
+#### 2026-08-14（周四）🏢 — 补学 08-08~08-12（二）：HashMap 源码 + String + 异常
 
-**学习内容：**
+**HashMap 源码深度阅读**
+- [ ] `HashMap` 源码精读：`put`、`get`、`resize` 方法的完整流程
+- [ ] `ConcurrentHashMap` 1.7（分段锁）vs 1.8（CAS + synchronized）
+- [ ] `Hashtable` vs `HashMap` vs `ConcurrentHashMap` 对比
+- [ ] `TreeMap` 排序原理与红黑树基本操作
+
+**String 与常量池**
+- [ ] `String` 不可变性的设计原因（安全、缓存、性能）
+- [ ] 字符串常量池（StringTable）的演进：永久代 → 堆上
+- [ ] `String.intern()` 方法原理
+- [ ] `StringBuilder` vs `StringBuffer`：可变性与线程安全
+- [ ] `equals()` vs `==` 在 String 上的行为差异
+
+**异常体系**
+- [ ] `Error` vs `Exception`：虚拟机层面的区别
+- [ ] 受检异常 vs 非受检异常的设计哲学
+- [ ] `try-catch-finally` 执行顺序与 `finally` 不执行的情况
+- [ ] `try-with-resources` 原理（`AutoCloseable`）
+- [ ] 自定义异常与异常链（cause）
+
+**实践任务：**
+- [ ] 在 HashMap 中 debug `put` 和 `resize` 流程
+- [ ] 阅读 `ConcurrentHashMap` 源码中 `put` 方法的加锁逻辑
+- [ ] 写实验验证对象地址（`System.identityHashCode`）
+- [ ] 验证 `String.intern()` 在不同 JDK 版本的行为差异
+- [ ] 拼接字符串性能对比：`+` vs `StringBuilder` vs `String.concat`
+- [ ] 设计业务异常体系（`BusinessException`、`BizCode` 枚举）
+- [ ] 全局异常处理器（`@RestControllerAdvice`）实践
+- [ ] 模拟 finally 不执行的场景（System.exit、守护线程）
+
+**输出成果：**
+- [ ] 代码提交 GitHub
+- [ ] 笔记：《HashMap 和 ConcurrentHashMap 源码分析》
+- [ ] 笔记：《String 不可变性与常量池深度解析》
+
+---
+
+#### 2026-08-15（周五）🏢 — 补学 08-08~08-12（三）：Java 8 特性 + 补学 08-13 泛型反射收尾
+
+**Java 8 核心特性：**
 - [ ] Lambda 表达式：语法、函数式接口、变量捕获
 - [ ] Stream API：中间操作、终结操作、短路操作
 - [ ] `Optional`：空指针的优雅处理
@@ -124,13 +187,14 @@ draft: false
 **实践任务：**
 - [ ] 用 Stream 重构项目中"订单列表过滤排序"的业务代码
 - [ ] 对比传统 for 循环 vs Stream 的性能（JMH）
+- [ ] 分析泛型在编译前后的字节码变化（javap）
 
 **输出成果：**
 - [ ] 代码提交 GitHub
 
 ---
 
-#### 2026-08-21（周五）🏢 — 算法：数组与哈希表
+#### 2026-08-16（周六）🏠 — 补学 08-08~08-12（四）：算法 + 集合实践收尾
 
 **LeetCode 题目：**
 - [ ] [1. 两数之和](https://leetcode.cn/problems/two-sum/)（哈希表，🔁）
@@ -140,9 +204,17 @@ draft: false
 
 **学习要点：** 哈希表时间复杂度 O(1)、数组作为哈希表、Set 去重
 
+**补学实践任务收尾：**
+- [ ] 回答三个经典问题：
+  - HashMap 为什么线程不安全？（JDK 1.7 环形链表、JDK 1.8 数据覆盖）
+  - 为什么容量必须是 2 的幂？（`(n - 1) & hash` 均匀分布）
+  - 为什么链表转红黑树的阈值是 8？（泊松分布概率分析）
+- [ ] 画图说明扩容时元素如何 rehash
+- [ ] 验证 `HashMap` 为什么线程不安全（多线程 put 导致数据丢失）
+
 ---
 
-#### 2026-08-22（周六）🏠 — 算法：链表与双指针
+#### 2026-08-17（周日）🏠 — 算法：链表与双指针
 
 **LeetCode 题目：**
 - [ ] [206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)（迭代 + 递归）🔁
@@ -154,30 +226,10 @@ draft: false
 
 ---
 
-#### 2026-08-23 ~ 08-27（周日至周四）🏢 — 集合源码周
+#### 2026-08-18（周一）🏢 — 集合源码周 + 面试输出（补学 08-17 原计划）
 
 本周集中完成集合框架的源码阅读与笔记整理，每天工作日 4 小时分配：源码阅读 2h + 算法 1h + 笔记整理 1h。
 
-**补学内容（08-08~08-10）：**
-
-- [ ] `ArrayList` 底层数组实现、扩容机制（1.5 倍）、`ensureCapacity`
-- [ ] `LinkedList` 双向链表实现、与 `ArrayList` 的性能对比
-- [ ] `fail-fast` 与 `fail-safe` 机制（`modCount` 字段）
-- [ ] `Vector`、`Stack` 的历史与为什么不推荐使用
-- [ ] `HashMap` 数据结构：数组 + 链表 + 红黑树
-- [ ] hash 算法：`(h = key.hashCode()) ^ (h >>> 16)` 扰动函数
-- [ ] 扩容机制：两倍扩容 + 元素重 hash（高位决定元素位置）
-- [ ] `TreeMap` 红黑树实现、`LinkedHashMap` 访问顺序与插入顺序
-- [ ] `HashMap` 源码精读：`put`、`get`、`resize` 方法的完整流程
-- [ ] `ConcurrentHashMap` 1.7（分段锁）vs 1.8（CAS + synchronized）
-- [ ] `Hashtable` vs `HashMap` vs `ConcurrentHashMap` 对比
-- [ ] `TreeMap` 排序原理与红黑树基本操作
-- [ ] 手写 `MyArrayList`（实现 `add`、`get`、`remove`、扩容逻辑）
-- [ ] 手写 `MyLinkedList`（带头尾哨兵的双向链表）
-- [ ] 手写简易 `MyHashMap`（数组 + 链表，支持 put/get）
-- [ ] JMH 基准测试对比 `ArrayList` vs `LinkedList`（随机访问 / 头插 / 尾插）
-
-**本周任务：**
 - [ ] `ArrayList` 源码精读笔记（`add` / `grow` / `remove` / `Iterator`）
 - [ ] `HashMap` 源码精读笔记（`putVal` / `treeifyBin` / `resize`）
 - [ ] `ConcurrentHashMap` 源码初步阅读（`putVal` / `transfer`）
@@ -189,35 +241,8 @@ draft: false
 
 ---
 
-#### 2026-08-29 ~ 08-30（周六至周日）（周末）🏠 — 综合复习与面试输出
+#### 2026-08-19（周二）🏢 — 综合复习与面试输出（补学 08-18 原计划）
 
-**补学内容：**
-
-- [ ] 对象创建全过程：`new` 指令 → 分配内存 → 初始化 → `<init>`
-- [ ] 对象内存布局：Mark Word、Klass Pointer、实例数据、对齐填充
-- [ ] 引用类型：强引用、软引用、弱引用、虚引用的区别
-- [ ] `this` 关键字的内存语义
-- [ ] `static` 变量的存储位置与生命周期
-- [ ] 引入 JOL（`org.openjdk.jol:jol-core`）分析对象内存占用
-- [ ] 对比基本类型 vs 包装类、空对象 vs 有字段对象的内存开销
-- [ ] `String` 不可变性的设计原因（安全、缓存、性能）
-- [ ] 字符串常量池（StringTable）的演进：永久代 → 堆上
-- [ ] `String.intern()` 方法原理
-- [ ] `StringBuilder` vs `StringBuffer`：可变性与线程安全
-- [ ] `equals()` vs `==` 在 String 上的行为差异
-- [ ] 写实验验证对象地址（`System.identityHashCode`）
-- [ ] 验证 `String.intern()` 在不同 JDK 版本的行为差异
-- [ ] 拼接字符串性能对比：`+` vs `StringBuilder` vs `String.concat`
-- [ ] `Error` vs `Exception`：虚拟机层面的区别
-- [ ] 受检异常 vs 非受检异常的设计哲学
-- [ ] `try-catch-finally` 执行顺序与 `finally` 不执行的情况
-- [ ] `try-with-resources` 原理（`AutoCloseable`）
-- [ ] 自定义异常与异常链（cause）
-- [ ] 设计业务异常体系（`BusinessException`、`BizCode` 枚举）
-- [ ] 全局异常处理器（`@RestControllerAdvice`）实践
-- [ ] 模拟 finally 不执行的场景（System.exit、守护线程）
-
-**本周任务：**
 - [ ] 整理 **Java 基础面试 100 问**（题目 + 自己的回答）
 - [ ] 输出博客文章一篇：《Java 集合框架全景梳理》
 - [ ] 完成阶段小测（自测，不看答案）
@@ -225,7 +250,7 @@ draft: false
 
 ---
 
-#### 2026-08-30（周日）🏠 — IO / NIO + Linux IO 模型
+#### 2026-08-20（周三）🏢 — IO / NIO + Linux IO 模型
 
 **学习内容：**
 - [ ] BIO 模型：`InputStream`/`OutputStream`、`Reader`/`Writer` 体系
@@ -245,7 +270,7 @@ draft: false
 
 ---
 
-#### 2026-08-31（周一）🏢 — Linux 基础：命令 + Shell + 性能监控
+#### 2026-08-21（周四）🏢 — Linux 基础：命令 + Shell + 性能监控
 
 **学习内容：**
 - [ ] Linux 常用命令速查（文件操作、文本处理、网络、进程）
@@ -280,7 +305,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-01（周二）🏢 — 注解与反射深入
+#### 2026-08-22（周五）🏢 — 注解与反射深入
 
 **学习内容：**
 - [ ] 注解分类：`@Retention`（SOURCE / CLASS / RUNTIME）
@@ -297,7 +322,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-02（周三）🏢 — 枚举与常用工具类
+#### 2026-08-23（周六）🏠 — 枚举与常用工具类
 
 **学习内容：**
 - [ ] 枚举底层：编译后生成继承 `java.lang.Enum` 的类
@@ -312,7 +337,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-03（周四）🏢 — Java 8 Stream 深入
+#### 2026-08-24（周日）🏠 — Java 8 Stream 深入
 
 **学习内容：**
 - [ ] 收集器 `collect`：`toList`、`groupingBy`、`partitioningBy`、`joining`
@@ -325,7 +350,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-04（周五）🏢 — 算法：栈与队列
+#### 2026-08-25（周一）🏢 — 算法：栈与队列
 
 **LeetCode 题目：**
 - [ ] [20. 有效的括号](https://leetcode.cn/problems/valid-parentheses/)
@@ -335,7 +360,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-05（周六）🏠 — 算法：二叉树
+#### 2026-08-26（周二）🏢 — 算法：二叉树
 
 **LeetCode 题目：**
 - [ ] [94. 二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal/)（递归 + 迭代）🔁
@@ -347,7 +372,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-06（周日）🏠 — 第一阶段总复习
+#### 2026-08-27（周三）🏢 — 第一阶段总复习
 
 - [ ] 复习所有 Java 基础知识点（集合、泛型、异常、IO、反射、Linux IO）
 - [ ] 完成 Java 基础 100 问的最终整理
@@ -357,9 +382,9 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-### 第二阶段：JVM + 并发编程（09-07 ~ 10-06）
+### 第二阶段：JVM + 并发编程（09-08 ~ 10-07）
 
-#### 2026-09-07（周一）🏢 — JVM 内存模型（JMM）
+#### 2026-09-08（周二）🏢 — JVM 内存模型（JMM）
 
 **学习内容：**
 - [ ] JVM 内存区域划分：栈、堆、方法区、程序计数器、本地方法栈
@@ -377,7 +402,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-08（周二）🏢 — 类加载机制
+#### 2026-09-09（周三）🏢 — 类加载机制
 
 **学习内容：**
 - [ ] 类的生命周期：加载 → 验证 → 准备 → 解析 → 初始化 → 使用 → 卸载
@@ -395,7 +420,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-09（周三）🏢 — GC 算法
+#### 2026-09-10（周四）🏢 — GC 算法
 
 **学习内容：**
 - [ ] 可达性分析算法：GC Roots（虚拟机栈引用、静态变量等）
@@ -414,7 +439,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-10（周四）🏢 — GC 收集器
+#### 2026-09-11（周五）🏢 — GC 收集器
 
 **学习内容：**
 - [ ] Serial / Serial Old：适合客户端模式的单线程收集器
@@ -430,7 +455,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-11（周五）🏢 — GC 调优实战
+#### 2026-09-12（周六）🏠 — GC 调优实战
 
 **学习内容：**
 - [ ] GC 调优基本思路：监控 → 分析 → 优化 → 验证
@@ -449,7 +474,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-12（周六）🏠 — 算法：二叉树进阶
+#### 2026-09-13（周日）🏠 — 算法：二叉树进阶
 
 **LeetCode 题目：**
 - [ ] [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
@@ -459,7 +484,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-13 ~ 09-17（周日至周四）🏢 — 并发编程第一周
+#### 2026-09-14 ~ 09-18（周一至周五）🏢 — 并发编程第一周
 
 **学习内容：**
 - [ ] `Thread`、`Runnable`、`Callable`、`Future`、`FutureTask`
@@ -480,7 +505,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-18（周五）🏢 — 算法：堆与优先队列
+#### 2026-09-19（周五）🏢 — 算法：堆与优先队列
 
 **LeetCode 题目：**
 - [ ] [215. 数组中的第 K 个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array/)（快排 / 堆）
@@ -490,7 +515,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-19（周六）🏠 — 算法：回溯算法
+#### 2026-09-20（周六）🏠 — 算法：回溯算法
 
 **LeetCode 题目：**
 - [ ] [77. 组合](https://leetcode.cn/problems/combinations/)
@@ -500,7 +525,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-20 ~ 09-24（周日至周四）🏢 — 并发编程第二周
+#### 2026-09-21 ~ 09-25（周一至周五）🏢 — 并发编程第二周
 
 **学习内容：**
 - [ ] `ReentrantLock` 底层实现：AQS + `Sync`（公平 / 非公平）
@@ -522,7 +547,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-25（周五）🏢 — 算法：动态规划（入门）
+#### 2026-09-26（周六）🏠 — 算法：动态规划（入门）
 
 **LeetCode 题目：**
 - [ ] [70. 爬楼梯](https://leetcode.cn/problems/climbing-stairs/)
@@ -532,7 +557,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-26（周六）🏠 — 算法：动态规划（进阶）
+#### 2026-09-27（周日）🏠 — 算法：动态规划（进阶）
 
 **LeetCode 题目：**
 - [ ] [121. 买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
@@ -542,7 +567,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-09-27 ~ 10-01（周日至周四）🏢 — 并发编程第三周
+#### 2026-09-28 ~ 10-01（周一至周四）🏢 — 并发编程第三周
 
 **学习内容：**
 - [ ] AQS 原理：`AbstractQueuedSynchronizer`、CLH 队列、state 状态
@@ -584,7 +609,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-04 ~ 10-06（周日至周二）🏢 — 阶段总复习
+#### 2026-10-04 ~ 10-07（周日至周三）🏢 — 阶段总复习
 
 - [ ] JVM 全部知识点复盘（JMM、类加载、GC、调优）
 - [ ] 并发编程全部知识点复盘（锁、线程池、AQS、并发工具类）
@@ -594,9 +619,9 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-### 第三阶段：数据库 + 缓存 + Spring 生态 + 分布式（10-07 ~ 11-01）
+### 第三阶段：数据库 + 缓存 + Spring 生态 + 分布式（10-08 ~ 11-02）
 
-#### 2026-10-01 ~ 10-03（国庆假期 🎆）🏠 — MySQL 第一弹
+#### 2026-10-08（周四）🏢 — MySQL 第一弹
 
 **学习内容：**
 - [ ] MySQL 架构概览：连接层 → 解析层 → 优化器 → 执行引擎 → 存储引擎
@@ -615,7 +640,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-10（周六）🏠 — 算法：SQL 练习
+#### 2026-10-09（周五）🏢 — 算法：SQL 练习
 
 **LeetCode 数据库题目：**
 - [ ] [176. 第二高的薪水](https://leetcode.cn/problems/second-highest-salary/)
@@ -625,7 +650,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-11（周日）🏠 — MySQL 事务与锁
+#### 2026-10-10（周六）🏠 — MySQL 事务与锁
 
 **学习内容：**
 - [ ] 事务特性：ACID 与实现原理（undo log + redo log）
@@ -641,7 +666,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-12（周一）🏢 — MySQL 调优 + 分库分表
+#### 2026-10-11（周日）🏠 — MySQL 调优 + 分库分表
 
 **学习内容：**
 - [ ] `EXPLAIN` 详解：type（const / ref / range / index / ALL）
@@ -656,7 +681,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-13（周二）🏢 — Redis 基础
+#### 2026-10-12（周一）🏢 — Redis 基础
 
 **学习内容：**
 - [ ] Redis 5 种基本数据结构：String、Hash、List、Set、ZSet
@@ -674,7 +699,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-14（周三）🏢 — Redis 高级特性
+#### 2026-10-13（周二）🏢 — Redis 高级特性
 
 **学习内容：**
 - [ ] 缓存经典问题：穿透、击穿、雪崩 → 解决方案
@@ -694,7 +719,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-15（周四）🏢 — Redis 实战：缓存系统
+#### 2026-10-14（周三）🏢 — Redis 实战：缓存系统
 
 **实践任务：**
 - [ ] 设计并实现商品缓存系统（Cache Aside 模式）
@@ -707,7 +732,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-16（周五）🏢 — 算法：二分查找
+#### 2026-10-15（周四）🏢 — 算法：二分查找
 
 **LeetCode 题目：**
 - [ ] [704. 二分查找](https://leetcode.cn/problems/binary-search/)
@@ -717,7 +742,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-17（周六）🏠 — Spring Boot 原理
+#### 2026-10-16（周五）🏢 — Spring Boot 原理
 
 **学习内容：**
 - [ ] Spring Boot 自动配置原理：`@SpringBootApplication` = `@Configuration` + `@ComponentScan` + `@EnableAutoConfiguration`
@@ -735,7 +760,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-18（周日）🏠 — Spring Boot 实战：RESTful API + 数据访问
+#### 2026-10-17（周六）🏠 — Spring Boot 实战：RESTful API + 数据访问
 
 **实践任务：**
 - [ ] 搭建一个规范的 Spring Boot 项目骨架
@@ -751,7 +776,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-19（周一）🏢 — MyBatis 源码 + Spring Boot Redis 整合
+#### 2026-10-18（周日）🏠 — MyBatis 源码 + Spring Boot Redis 整合
 
 **学习内容：**
 - [ ] `SqlSessionFactory` 构建过程
@@ -768,7 +793,7 @@ jstack <pid> | grep -A 20 "nid=0x<hex>"
 
 ---
 
-#### 2026-10-20（周二）🏢 — Spring Cloud（一）：服务治理与通信
+#### 2026-10-19（周一）🏢 — Spring Cloud（一）：服务治理与通信
 
 **学习内容：**
 - [ ] 微服务架构演进：单体 → 垂直拆分 → SOA → 微服务
@@ -804,7 +829,7 @@ spring:
 
 ---
 
-#### 2026-10-21（周三）🏢 — Spring Cloud（二）：容错与可观测性
+#### 2026-10-20（周二）🏢 — Spring Cloud（二）：容错与可观测性
 
 **学习内容：**
 - [ ] Sentinel：流控规则、熔断降级、热点参数限流、系统自适应限流
@@ -823,7 +848,7 @@ spring:
 
 ---
 
-#### 2026-10-22（周四）🏢 — 分布式系统理论
+#### 2026-10-21（周三）🏢 — 分布式系统理论
 
 **学习内容：**
 - [ ] CAP 定理：一致性、可用性、分区容错性（三选二）
@@ -842,7 +867,7 @@ spring:
 
 ---
 
-#### 2026-10-23（周五）🏢 — 算法：滑动窗口与双指针
+#### 2026-10-22（周四）🏢 — 算法：滑动窗口与双指针
 
 **LeetCode 题目：**
 - [ ] [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)（滑动窗口）
@@ -852,7 +877,7 @@ spring:
 
 ---
 
-#### 2026-10-24（周六）🏠 — 分布式实战 + Spring Cloud 综合练习
+#### 2026-10-23（周五）🏢 — 分布式实战 + Spring Cloud 综合练习
 
 **实践任务：**
 - [ ] 实现分布式限流器（Redis + Lua 滑动窗口）
@@ -866,7 +891,7 @@ spring:
 
 ---
 
-#### 2026-10-25（周日）🏠 — 消息队列（一）：RabbitMQ
+#### 2026-10-24（周六）🏠 — 消息队列（一）：RabbitMQ
 
 **学习内容：**
 - [ ] MQ 核心概念：生产者、消费者、交换机、队列、路由键
@@ -893,7 +918,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-26（周一）🏢 — 消息队列（二）：RocketMQ + Kafka 速览
+#### 2026-10-25（周日）🏠 — 消息队列（二）：RocketMQ + Kafka 速览
 
 **学习内容：**
 - [ ] RocketMQ 架构：NameServer、Broker、Producer、Consumer
@@ -910,7 +935,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-27（周二）🏢 — 设计模式精讲
+#### 2026-10-26（周一）🏢 — 设计模式精讲
 
 **学习内容：**
 - [ ] 创建型：单例（6 种写法）、工厂方法、抽象工厂、建造者
@@ -925,7 +950,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-28（周三）🏢 — Spring Boot 自动配置源码 + 复习
+#### 2026-10-27（周二）🏢 — Spring Boot 自动配置源码 + 复习
 
 **学习内容：**
 - [ ] `@EnableAutoConfiguration` → `AutoConfigurationImportSelector` 源码链路
@@ -938,7 +963,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-29（周四）🏢 — 第三阶段复习 + 博客输出
+#### 2026-10-28（周三）🏢 — 第三阶段复习 + 博客输出
 
 - [ ] MySQL + Redis + Spring Boot + Spring Cloud + MQ + 分布式 全知识点串联复习
 - [ ] 输出博客文章一篇（RocketMQ 原理 / MyBatis 源码 / Spring Boot 启动流程 / 分布式事务方案）
@@ -947,7 +972,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-30（周五）🏢 — 算法：链表进阶
+#### 2026-10-29（周四）🏢 — 算法：链表进阶
 
 **LeetCode 题目：**
 - [ ] [148. 排序链表](https://leetcode.cn/problems/sort-list/)（归并排序）
@@ -957,7 +982,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-10-31（周六）🏠 — 第三阶段总复习
+#### 2026-11-01（周日）🏠 — 第三阶段总复习
 
 - [ ] 全阶段知识点思维导图梳理（MySQL → Redis → Spring → 分布式 → MQ）
 - [ ] 整理 **数据库 + 中间件面试 100 问**
@@ -966,9 +991,9 @@ docker run -d --name rabbitmq \
 
 ---
 
-### 第四阶段：高并发实战 + 容器化（11-02 ~ 11-09）
+### 第四阶段：高并发实战 + 容器化（11-03 ~ 11-12）
 
-#### 2026-11-01（周日）🏠 — 秒杀系统架构设计
+#### 2026-11-02（周一）🏢 — 秒杀系统架构设计
 
 **学习内容：**
 - [ ] 秒杀系统核心挑战：瞬时高并发、超卖、恶意请求
@@ -985,7 +1010,7 @@ docker run -d --name rabbitmq \
 
 ---
 
-#### 2026-11-02（周一）🏢 — 秒杀 V1：基础版
+#### 2026-11-03（周二）🏢 — 秒杀 V1：基础版
 
 **技术栈：** Spring Boot + Spring Cloud + MySQL
 
@@ -1011,7 +1036,7 @@ seckill/
 
 ---
 
-#### 2026-11-03（周二）🏢 — 秒杀 V2：加入 Redis
+#### 2026-11-04（周三）🏢 — 秒杀 V2：加入 Redis
 
 **优化内容：**
 - [ ] 商品信息缓存：热点商品预加载到 Redis
@@ -1023,7 +1048,7 @@ seckill/
 
 ---
 
-#### 2026-11-04（周三）🏢 — 秒杀 V3：加入 MQ + 限流
+#### 2026-11-05（周四）🏢 — 秒杀 V3：加入 MQ + 限流
 
 **优化内容：**
 - [ ] RabbitMQ 削峰填谷：秒杀请求先入队，异步消费创建订单
@@ -1036,7 +1061,7 @@ seckill/
 
 ---
 
-#### 2026-11-05（周四）🏢 — 秒杀 V4：生产级完善
+#### 2026-11-06（周五）🏢 — 秒杀 V4：生产级完善
 
 **优化内容：**
 - [ ] 分布式锁（Redisson）：防止多实例超卖
@@ -1050,7 +1075,7 @@ seckill/
 
 ---
 
-#### 2026-11-06（周五）🏢 — Docker 容器化
+#### 2026-11-07（周六）🏠 — Docker 容器化
 
 **学习内容：**
 - [ ] Docker 核心概念：镜像、容器、仓库、Dockerfile
@@ -1079,7 +1104,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 ---
 
-#### 2026-11-07（周六）🏠 — Kubernetes 部署
+#### 2026-11-08（周日）🏠 — Kubernetes 部署
 
 **学习内容：**
 - [ ] K8s 核心概念：Pod、Deployment、Service、Ingress、ConfigMap、Secret
@@ -1116,7 +1141,7 @@ spec:
 
 ---
 
-#### 2026-11-08（周日）🏠 — 压测与性能优化
+#### 2026-11-09（周一）🏢 — 压测与性能优化
 
 **实践任务：**
 - [ ] JMeter 压测脚本编写与执行（阶梯加压）
@@ -1131,7 +1156,7 @@ spec:
 
 ---
 
-#### 2026-11-09（周一）🏢 — 项目收尾与文档
+#### 2026-11-10（周二）🏢 — 项目收尾与文档
 
 - [ ] 完善项目 README（架构图、接口文档、部署步骤、技术栈说明）
 - [ ] 录制项目演示视频（可选）
@@ -1140,7 +1165,7 @@ spec:
 
 ---
 
-#### 2026-11-10（周二）🏢 — 最终复盘
+#### 2026-11-11（周三）🏢 — 最终复盘
 
 - [ ] 3 个月学习回顾与总结（对照能力评估矩阵逐项打分）
 - [ ] 输出最终博客文章：《3 个月 Java 后端进阶之路》
@@ -1150,32 +1175,41 @@ spec:
 
 ---
 
+#### 2026-11-12（周四）🏢 — 收尾日
+
+- [ ] 所有待办任务最终确认
+- [ ] GitHub 仓库整理（star、README 优化）
+- [ ] 技术博客发布计划制定
+- [ ] 下一步学习方向确定
+
+---
+
 ## 🛠️ 实践项目
 
 ### 项目一：Java 集合框架简易实现
 
 | 项目 | 时间 | 内容 | 技术要点 |
 |------|------|------|----------|
-| MyArrayList | 08-08 | 手写动态数组 | 数组扩容、泛型、fail-fast |
-| MyHashMap | 08-09 | 手写哈希表 | hash 扰动、拉链法、扩容 |
-| MyThreadPool | 09-14 | 手写线程池 | 任务队列、拒绝策略、线程管理 |
+| MyArrayList | 08-13 | 手写动态数组 | 数组扩容、泛型、fail-fast |
+| MyHashMap | 08-13 | 手写哈希表 | hash 扰动、拉链法、扩容 |
+| MyThreadPool | 09-21 | 手写线程池 | 任务队列、拒绝策略、线程管理 |
 
 ### 项目二：Spring Boot 脚手架 + 微服务拆分
 
 | 阶段 | 时间 | 内容 | 技术要点 |
 |------|------|------|----------|
-| 脚手架 | 10-12 | 统一异常/响应/校验/日志 | RESTful 规范、MyBatis-Plus |
-| 单体拆分 | 10-14 | 拆为 user/product/order 三服务 | Nacos、OpenFeign、Gateway |
-| 服务治理 | 10-15 | 接入 Sentinel + Seata + Sleuth | 限流降级、分布式事务、链路追踪 |
+| 脚手架 | 10-17 | 统一异常/响应/校验/日志 | RESTful 规范、MyBatis-Plus |
+| 单体拆分 | 10-19 | 拆为 user/product/order 三服务 | Nacos、OpenFeign、Gateway |
+| 服务治理 | 10-20 | 接入 Sentinel + Seata + Sleuth | 限流降级、分布式事务、链路追踪 |
 
 ### 项目三：秒杀系统（高并发实战）
 
 | 版本 | 时间 | 内容 | 技术要点 |
 |------|------|------|----------|
-| V1 基础版 | 10-27 | Spring Cloud + MySQL | 微服务架构、JWT 鉴权 |
-| V2 加缓存 | 10-28 | + Redis 缓存 + 库存预扣 | Cache Aside、Lua 原子操作 |
-| V3 加 MQ | 10-29 | + RabbitMQ 削峰 + 限流 | 异步解耦、DLX、Sentinel |
-| V4 生产版 | 10-30 | + 分布式锁 + 幂等 + 压测 | Redisson、Seata、HPA |
+| V1 基础版 | 11-02 | Spring Cloud + MySQL | 微服务架构、JWT 鉴权 |
+| V2 加缓存 | 11-03 | + Redis 缓存 + 库存预扣 | Cache Aside、Lua 原子操作 |
+| V3 加 MQ | 11-04 | + RabbitMQ 削峰 + 限流 | 异步解耦、DLX、Sentinel |
+| V4 生产版 | 11-05 | + 分布式锁 + 幂等 + 压测 | Redisson、Seata、HPA |
 
 **最终项目结构：**
 
@@ -1216,15 +1250,15 @@ JMeter + Arthas        ← 压测与诊断
 
 | 源码项目 | 时间 | 重点章节 |
 |----------|------|----------|
-| `HashMap` | 08-10 | put / get / resize 方法 |
-| `ConcurrentHashMap` | 09-14 | putVal / helpTransfer |
-| `ThreadPoolExecutor` | 09-14 | addWorker / getTask / shutdown |
-| `AQS` | 09-21 | acquire / release / CLH 队列 |
-| `ThreadLocal` | 09-21 | set / get / remove 内存泄漏 |
-| MyBatis `MapperProxy` | 10-13 | 动态代理执行 SQL |
-| Spring `BeanFactory` | 10-11 | getBean / doCreateBean |
-| Spring Boot `AutoConfigurationImportSelector` | 10-22 | 自动配置加载流程 |
-| Spring Cloud `Gateway` | 10-14 | 路由匹配 + 过滤器链 |
+| `HashMap` | 08-13 | put / get / resize 方法 |
+| `ConcurrentHashMap` | 09-21 | putVal / helpTransfer |
+| `ThreadPoolExecutor` | 09-21 | addWorker / getTask / shutdown |
+| `AQS` | 09-28 | acquire / release / CLH 队列 |
+| `ThreadLocal` | 09-28 | set / get / remove 内存泄漏 |
+| MyBatis `MapperProxy` | 10-18 | 动态代理执行 SQL |
+| Spring `BeanFactory` | 10-16 | getBean / doCreateBean |
+| Spring Boot `AutoConfigurationImportSelector` | 10-27 | 自动配置加载流程 |
+| Spring Cloud `Gateway` | 10-19 | 路由匹配 + 过滤器链 |
 
 ---
 
@@ -1379,8 +1413,8 @@ chore: 构建/工具变更
 
 ---
 
-> 📅 计划起始：2026-08-05
-> 📅 计划结束：2026-11-09
-> 🎯 总周期：98 天（含 6 天补学缓冲）
-> ⏰ 总投入：约 508 小时（工作日 64 × 4h + 周末 34 × 6h）
+> 📅 计划起始：2026-08-05（08-08~08-12 因事暂停，任务已补至 08-13~08-16）
+> 📅 计划结束：2026-11-12
+> 🎯 总周期：100 天（含 5 天缓冲补学）
+> ⏰ 总投入：约 500 小时（工作日 66 × 4h + 周末 34 × 6h）
 > 祝自己 3 个月后成为更好的工程师 💪
