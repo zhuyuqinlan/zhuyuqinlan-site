@@ -311,6 +311,18 @@ sudo dnf install uv maven
 sudo dnf install rustup
 rustup-init
 ```
+### go
+```bash
+curl -L -o go-1.26.5.tar.gz https://go.dev/dl/go1.26.5.linux-amd64.tar.gz
+mkdir -p ~/program/go
+tar -zxvf go-1.26.5.tar.gz -C ~/program/go
+rm go-1.26.5.tar.gz
+mv ~/program/go/go ~/program/go/1.26.5
+```
+#### 设置环境变量
+```bash
+export PATH=$HOME/program/go/1.26.5/bin:$PATH
+```
 
 ---
 
