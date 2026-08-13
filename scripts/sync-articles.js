@@ -3,8 +3,13 @@
 
 import fs from "fs"
 import path from "path"
+import { config } from "dotenv"
 
-const API_BASE = process.env.COMMENT_API_URL || "http://localhost:8812/api"
+const mode = process.env.NODE_ENV || "development"
+config()
+config({ path: `.env.${mode}` })
+
+const API_BASE = process.env.COMMENT_API_URL || ""
 const API_KEY = process.env.COMMENT_API_KEY || ""
 const POSTS_DIR = "./src/content/posts"
 
@@ -36,7 +41,10 @@ async function syncArticle(id, title) {
   return res.ok
 }
 
-export async function syncArticles() {
+async function syncArticles() {
+  console.log(`API_BASE: ${API_BASE}`)
+  console.log(`API_KEY: ${API_KEY ? "***" : "(空)"}\n`)
+
   const dirs = fs.readdirSync(POSTS_DIR).filter((name) => {
     const filePath = path.join(POSTS_DIR, name, "index.md")
     return fs.existsSync(filePath)
@@ -81,3 +89,5 @@ export async function syncArticles() {
 
   console.log(`\n同步完成: ${synced} 成功, ${skipped} 跳过, ${failed} 失败`)
 }
+
+syncArticles()

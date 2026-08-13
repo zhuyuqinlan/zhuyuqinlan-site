@@ -7,6 +7,10 @@ import swup from "@swup/astro";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
+import { config } from "dotenv";
+const mode = process.env.NODE_ENV || "development";
+config();
+config({ path: `.env.${mode}` });
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import rehypeKatex from "rehype-katex";
@@ -24,7 +28,6 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import rehypeExternalLinks from "rehype-external-links";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
-import { syncArticles } from "./scripts/sync-articles.js";
 
 // https://astro.build/config
 export default defineConfig({
@@ -168,21 +171,6 @@ export default defineConfig({
       "import.meta.env.COMMENT_API_URL": JSON.stringify(process.env.COMMENT_API_URL || ""),
     },
     plugins: [
-      {
-        name: "sync-articles",
-        configureServer(server) {
-          if (server.httpServer) {
-            server.httpServer.once("listening", () => {
-              syncArticles().catch((err) => {
-                console.error("同步文章失败:", err)
-              })
-            })
-          }
-        },
-        closeBundle() {
-          return syncArticles()
-        },
-      },
       {
         name: "fix-astro-inline-script-ct",
         configureServer(server) {
