@@ -1,5 +1,11 @@
 /* This is a script to create a new post markdown file with front-matter */
 
+import "dotenv/config"
+import { config } from "dotenv"
+
+const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development"
+config({ path: envFile })
+
 import fs from "fs"
 import path from "path"
 
@@ -11,25 +17,17 @@ function getDate() {
 
   return `${year}-${month}-${day}`
 }
-function GetD(){
-  const d = Date.now()
-  return d
-}
-// const args = process.argv.slice(2)
-const args = GetD() + '/index.md'
+
+const args = process.argv.slice(2)
 if (args.length === 0) {
-  console.error(`Error: No filename argument provided
-Usage: npm run new-post -- <filename>`)
-  process.exit(1) // Terminate the script and return error code 1
+  console.error(`Error: No title argument provided
+Usage: pnpm new-post -- "文章标题"`)
+  process.exit(1)
 }
 
-let fileName = args
-
-// Add .md extension if not present
-const fileExtensionRegex = /\.(md|mdx)$/i
-if (!fileExtensionRegex.test(fileName)) {
-  fileName += ".md"
-}
+const title = args[0]
+const dirName = String(Date.now())
+const fileName = `${dirName}/index.md`
 
 const targetDir = "./src/content/posts/"
 const fullPath = path.join(targetDir, fileName)
@@ -39,20 +37,19 @@ if (fs.existsSync(fullPath)) {
   process.exit(1)
 }
 
-// recursive mode creates multi-level directories
 const dirPath = path.dirname(fullPath)
 if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true })
 }
 
 const content = `---
-title: ${args[0]}
+title: ${title}
 published: ${getDate()}
 description: ''
 image: ''
 tags: []
 category: ''
-draft: false 
+draft: false
 lang: ''
 ---
 `

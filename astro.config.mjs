@@ -18,12 +18,13 @@ import remarkSectionize from "remark-sectionize";
 import { expressiveCodeConfig } from "./src/config.ts";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
-import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
+import { GithubCardComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import rehypeExternalLinks from "rehype-external-links";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
+import { syncArticles } from "./scripts/sync-articles.js";
 
 // https://astro.build/config
 export default defineConfig({
@@ -163,6 +164,46 @@ export default defineConfig({
     ],
   },
   vite: {
+    define: {
+      "import.meta.env.COMMENT_API_URL": JSON.stringify(process.env.COMMENT_API_URL || ""),
+    },
+    plugins: [
+      {
+        name: "sync-articles",
+        configureServer(server) {
+          if (server.httpServer) {
+            server.httpServer.once("listening", () => {
+              syncArticles().catch((err) => {
+                console.error("同步文章失败:", err)
+              })
+            })
+          }
+        },
+        closeBundle() {
+          return syncArticles()
+        },
+      },
+      {
+        name: "fix-astro-inline-script-ct",
+        configureServer(server) {
+          // 返回一个函数，在 Vite 内部中间件之后运行
+          return () => {
+            server.middlewares.use((req, res, next) => {
+              if (req.url?.includes("astro&type=script")) {
+                const origEnd = res.end;
+                res.end = function (...args) {
+                  if (!res.getHeader("content-type") || res.getHeader("content-type") === "") {
+                    res.setHeader("content-type", "application/javascript; charset=utf-8");
+                  }
+                  return origEnd.call(this, ...args);
+                };
+              }
+              next();
+            });
+          };
+        },
+      },
+    ],
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

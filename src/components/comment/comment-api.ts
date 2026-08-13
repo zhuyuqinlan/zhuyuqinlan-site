@@ -1,0 +1,113 @@
+// comment-api.ts — 评论 API 封装
+
+export interface Comment {
+	id: number;
+	article_id: string;
+	parent_id: number | null;
+	name: string;
+	email_md5: string;
+	content: string;
+	website: string;
+	created_at: string;
+	replies: Comment[];
+}
+
+export interface CommentsResponse {
+	article_id: string;
+	total: number;
+	comments: Comment[];
+}
+
+export interface CaptchaData {
+	captcha_id: string;
+	image: string;
+}
+
+export interface SubmitData {
+	article_id: string;
+	parent_id: number | null;
+	name: string;
+	email: string;
+	content: string;
+	captcha_id: string;
+	captcha_code: string;
+}
+
+// API 基础地址：从环境变量 COMMENT_API_URL 读取，留空则使用同域 /api
+const API_BASE = import.meta.env.COMMENT_API_URL || "/api";
+
+export async function fetchComments(
+	articleId: string,
+): Promise<CommentsResponse> {
+	const res = await fetch(
+		`${API_BASE}/comments?article_id=${encodeURIComponent(articleId)}`,
+	);
+	if (!res.ok) {
+		const err = await res.json().catch(() => ({ message: "加载评论失败" }));
+		throw new Error(err.message || "加载评论失败");
+	}
+	const json = await res.json();
+	return json.data as CommentsResponse;
+}
+
+export async function fetchCaptcha(): Promise<CaptchaData> {
+	const res = await fetch(`${API_BASE}/captcha`);
+	if (!res.ok) throw new Error("获取验证码失败");
+	const json = await res.json();
+	return json.data as CaptchaData;
+}
+
+export async function submitComment(data: SubmitData): Promise<Comment> {
+	const res = await fetch(`${API_BASE}/comments`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(data),
+	});
+	if (!res.ok) {
+		const err = await res.json().catch(() => ({ message: "发表失败" }));
+		throw new Error(err.message || "发表失败");
+	}
+	const json = await res.json();
+	return json.data as Comment;
+}
+
+// 格式化时间
+export function formatTime(isoStr: string): string {
+	const d = new Date(isoStr);
+	const now = new Date();
+	const diffMs = now.getTime() - d.getTime();
+	const diffMin = Math.floor(diffMs / 60000);
+	const diffHour = Math.floor(diffMs / 3600000);
+
+	if (diffMin < 1) return "刚刚";
+	if (diffMin < 60) return `${diffMin} 分钟前`;
+	if (diffHour < 24) return `${diffHour} 小时前`;
+
+	const y = d.getFullYear();
+	const m = String(d.getMonth() + 1).padStart(2, "0");
+	const day = String(d.getDate()).padStart(2, "0");
+	return `${y}-${m}-${day}`;
+}
+
+// Gravatar 头像 URL
+export function gravatarUrl(md5: string, size = 48): string {
+	return `https://www.gravatar.com/avatar/${md5}?d=identicon&s=${size}`;
+}
+
+// 简单防 XSS：转义 HTML 特殊字符
+export function escapeHtml(text: string): string {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;");
+}
+
+// 将纯文本中的链接转为可点击的 <a> 标签
+export function linkify(text: string): string {
+	const escaped = escapeHtml(text);
+	return escaped.replace(
+		/(https?:\/\/[^\s<]+)/g,
+		'<a href="$1" target="_blank" rel="nofollow noopener noreferrer" class="text-[var(--primary)] underline hover:no-underline">$1</a>',
+	);
+}

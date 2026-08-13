@@ -9,6 +9,7 @@ import { getSortedPosts } from "@utils/content-utils";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
+import CommentSection from "../../components/comment/CommentSection.svelte";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
@@ -164,6 +165,9 @@ const jsonLd = {
           />
         )
       }
+
+      <!-- 评论区域 -->
+      <CommentSection client:load articleId={entry.slug} class="onload-animation" />
     </div>
   </div>
 
@@ -216,3 +220,16 @@ const jsonLd = {
   </div>
 
 </MainGridLayout>
+
+<script is:inline>
+	// Swup 页面切换后重新触发 Astro Island 水合（hydration）
+	document.addEventListener("swup:enable", () => {
+		window.swup.hooks.on("content:replace", () => {
+			document.querySelectorAll("astro-island[client='load']").forEach((el) => {
+				el.removeAttribute("ssr");
+				el.dispatchEvent(new CustomEvent("astro:hydrate"));
+			});
+		});
+	});
+</script>
+

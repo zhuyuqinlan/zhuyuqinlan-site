@@ -1,12 +1,12 @@
-# 🍥Fuwari  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-saicaca%2Ffuwari-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/saicaca/fuwari)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_shield&issueType=license)
+# 🍥 执着的牛战士
 
-A static blog template built with [Astro](https://astro.build).
+> 基于 [Fuwari](https://github.com/saicaca/fuwari) 模板定制的个人博客。
 
-[**🖥️ Live Demo (Vercel)**](https://fuwari.vercel.app)
+[**🖥️ 在线预览**](https://zhuyuqinlan.top)
+
+[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![GitHub](https://img.shields.io/badge/GitHub-zhuyuqinlan%2Fzhuyuqinlan--site-blue?logo=github)](https://github.com/zhuyuqinlan/zhuyuqinlan-site)
 
 ![Preview Image](https://raw.githubusercontent.com/saicaca/resource/main/fuwari/home.png)
 
@@ -30,6 +30,7 @@ A static blog template built with [Astro](https://astro.build).
 - [x] [Markdown extended features](https://github.com/saicaca/fuwari?tab=readme-ov-file#-markdown-extended-syntax)
 - [x] Table of contents
 - [x] RSS feed
+- [x] 博客评论（配套 [blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server)，支持图形验证码、楼中楼回复、IP 限流）
 
 ## 🚀 Getting Started
 
@@ -47,7 +48,8 @@ A static blog template built with [Astro](https://astro.build).
     - Install [pnpm](https://pnpm.io) `npm install -g pnpm` if you haven't.
 3. Edit the config file `src/config.ts` to customize your blog.
 4. Run `pnpm new-post <filename>` to create a new post and edit it in `src/content/posts/`.
-5. Deploy your blog to Vercel, Netlify, GitHub Pages, etc. following [the guides](https://docs.astro.build/en/guides/deploy/). You need to edit the site configuration in `astro.config.mjs` before deployment.
+5. 如需启用评论功能，部署 [blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server) 并配置环境变量 `COMMENT_API_URL`（可在 `.env.development` 或 `.env.production` 中设置）。
+6. Deploy your blog to Vercel, Netlify, GitHub Pages, etc. following [the guides](https://docs.astro.build/en/guides/deploy/). You need to edit the site configuration in `astro.config.mjs` before deployment.
 
 ## 📝 Frontmatter of Posts
 
@@ -72,6 +74,43 @@ In addition to Astro's default support for [GitHub Flavored Markdown](https://gi
 - GitHub repository cards ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#github-repository-cards))
 - Enhanced code blocks with Expressive Code ([Preview](https://fuwari.vercel.app/posts/expressive-code/) / [Docs](https://expressive-code.com/))
 
+## 💬 博客评论
+
+本站集成了自研的 [blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server) 作为评论后端，特性包括：
+
+- 游客评论（无需注册登录）
+- 图形验证码（数学题）
+- 楼中楼回复（两层结构）
+- IP 限流（内存实现，无需 Redis）
+- 软删除评论（管理员 token 鉴权）
+
+### 环境变量
+
+| 变量名 | 用途 | 配置位置 |
+|:--------|:------|:---------|
+| `COMMENT_API_URL` | 评论后端 API 地址 | `.env.development` 或 `.env.production` |
+| `COMMENT_API_KEY` | 文章同步 API Key（**不写入 .env**） | 系统环境变量 |
+
+### 启用步骤
+
+1. 部署 [blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server)，从启动日志中获取 API Key
+2. 在 `.env.development`（本地）或 `.env.production`（生产）中设置 `COMMENT_API_URL`
+3. 同步文章到评论后端：
+   ```bash
+   # 本地开发
+   COMMENT_API_KEY=your-api-key pnpm dev
+
+   # 生产构建
+   COMMENT_API_KEY=your-api-key pnpm build
+   ```
+   或在终端预先导出环境变量：
+   ```bash
+   export COMMENT_API_KEY=your-api-key
+   pnpm dev
+   ```
+
+> 注意：`COMMENT_API_KEY` 仅用于文章同步，不需要写入 `.env` 文件。前端通过 `COMMENT_API_URL` 与评论后端通信，无需 API Key。
+
 ## ⚡ Commands
 
 All commands are run from the root of the project, from a terminal:
@@ -91,6 +130,17 @@ All commands are run from the root of the project, from a terminal:
 ## ✏️ Contributing
 
 Check out the [Contributing Guide](https://github.com/saicaca/fuwari/blob/main/CONTRIBUTING.md) for details on how to contribute to this project.
+
+## 📂 本项目
+
+本站是基于 [Fuwari](https://github.com/saicaca/fuwari) 模板的定制版本，主要修改包括：
+
+- 自定义主题配色、Banner、导航栏
+- 集成 [blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server) 评论系统
+- 添加友链、关于页面等自定义内容
+
+- 前端仓库：[zhuyuqinlan-site](https://github.com/zhuyuqinlan/zhuyuqinlan-site)
+- 后端仓库：[blog-comment-server](https://github.com/zhuyuqinlan/blog-comment-server)
 
 ## 📄 License
 
