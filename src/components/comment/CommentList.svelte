@@ -10,8 +10,12 @@ const dispatch = createEventDispatcher();
 function onReply(event: CustomEvent<{ id: number; name: string }>) {
 	dispatch("reply", event.detail);
 }
+
+function onDelete(event: CustomEvent<{ id: number; name: string; content: string }>) {
+	dispatch("delete", event.detail);
+}
 </script>
 
 {#each comments as comment (comment.id)}
-	<CommentItem {comment} on:reply={onReply} />
+	<CommentItem {comment} on:reply={onReply} on:delete={onDelete} />
 {/each}

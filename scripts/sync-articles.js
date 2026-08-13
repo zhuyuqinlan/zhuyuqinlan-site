@@ -29,18 +29,6 @@ function parseFrontmatter(filePath) {
   return { title, draft }
 }
 
-async function syncArticle(id, title) {
-  const res = await fetch(`${API_BASE}/articles`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-Key": API_KEY,
-    },
-    body: JSON.stringify({ id, title }),
-  })
-  return res.ok
-}
-
 async function syncArticles() {
   console.log(`API_BASE: ${API_BASE}`)
   console.log(`API_KEY: ${API_KEY ? "***" : "(空)"}\n`)
@@ -50,11 +38,7 @@ async function syncArticles() {
     return fs.existsSync(filePath)
   })
 
-  console.log(`扫描到 ${dirs.length} 篇文章，开始同步...\n`)
-
-  let synced = 0
-  let skipped = 0
-  let failed = 0
+  const articles = []
 
   for (const dir of dirs) {
     const filePath = path.join(POSTS_DIR, dir, "index.md")
@@ -62,32 +46,37 @@ async function syncArticles() {
 
     if (!meta || !meta.title) {
       console.log(`  [跳过] ${dir} — 无法解析 frontmatter`)
-      skipped++
       continue
     }
 
     if (meta.draft) {
       console.log(`  [草稿] ${dir} — ${meta.title}`)
-      skipped++
       continue
     }
 
-    try {
-      const ok = await syncArticle(dir, meta.title)
-      if (ok) {
-        console.log(`  [同步] ${dir} — ${meta.title}`)
-        synced++
-      } else {
-        console.log(`  [失败] ${dir} — ${meta.title}`)
-        failed++
-      }
-    } catch (err) {
-      console.log(`  [错误] ${dir} — ${err.message}`)
-      failed++
-    }
+    articles.push({ id: dir, title: meta.title })
   }
 
-  console.log(`\n同步完成: ${synced} 成功, ${skipped} 跳过, ${failed} 失败`)
+  console.log(`共 ${articles.length} 篇文章，开始同步...\n`)
+
+  try {
+    const res = await fetch(`${API_BASE}/articles`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": API_KEY,
+      },
+      body: JSON.stringify(articles),
+    })
+
+    if (res.ok) {
+      console.log(`同步完成`)
+    } else {
+      console.log(`同步失败: ${res.status}`)
+    }
+  } catch (err) {
+    console.log(`[错误] ${err.message}`)
+  }
 }
 
 syncArticles()

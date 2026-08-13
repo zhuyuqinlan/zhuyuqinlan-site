@@ -2,8 +2,16 @@
 import { onMount } from "svelte";
 import CommentForm from "./CommentForm.svelte";
 import CommentList from "./CommentList.svelte";
+import DeleteConfirmModal from "./DeleteConfirmModal.svelte";
+import Portal from "./Portal.svelte";
 import type { CaptchaData, Comment } from "./comment-api";
-import { fetchCaptcha, fetchComments, submitComment } from "./comment-api";
+import {
+	fetchCaptcha,
+	fetchComments,
+	submitComment,
+	fetchApiKey,
+	deleteComment,
+} from "./comment-api";
 
 export let articleId: string;
 
@@ -15,13 +23,17 @@ let submitError = "";
 let submitSuccess = "";
 let submitting = false;
 
-// 验证码相关
 let captcha: CaptchaData | null = null;
 let captchaLoading = false;
 let captchaError = "";
 
-// 回复目标（null 表示顶层评论）
 let replyTarget: { id: number; name: string } | null = null;
+
+let apiKey = "";
+let apiKeyLoading = true;
+
+let deleteTarget: { id: number; name: string; content: string } | null = null;
+let deleting = false;
 
 async function loadComments() {
 	loading = true;
@@ -49,12 +61,54 @@ async function refreshCaptcha() {
 	}
 }
 
+async function loadApiKey() {
+	apiKeyLoading = true;
+	try {
+		apiKey = await fetchApiKey();
+	} catch {
+		// silently fail; delete button won't work
+	} finally {
+		apiKeyLoading = false;
+	}
+}
+
 function handleReply(event: CustomEvent<{ id: number; name: string }>) {
 	replyTarget = event.detail;
 }
 
 function cancelReply() {
 	replyTarget = null;
+}
+
+function handleDeleteRequest(event: CustomEvent<{
+	id: number;
+	name: string;
+	content: string;
+}>) {
+	deleteTarget = event.detail;
+}
+
+function cancelDelete() {
+	deleteTarget = null;
+}
+
+async function confirmDelete(event: CustomEvent<{ apiKey: string }>) {
+	if (!deleteTarget) return;
+	deleting = true;
+	try {
+		await deleteComment(deleteTarget.id, event.detail.apiKey);
+		comments = comments.filter((c) => {
+			if (c.id === deleteTarget.id) return false;
+			c.replies = c.replies.filter((r) => r.id !== deleteTarget.id);
+			return true;
+		});
+		total--;
+		deleteTarget = null;
+	} catch (e: unknown) {
+		submitError = (e as Error).message || "删除失败";
+	} finally {
+		deleting = false;
+	}
 }
 
 async function handleSubmit(
@@ -85,14 +139,11 @@ async function handleSubmit(
 			captcha_code: detail.captchaCode,
 		});
 
-		// 刷新验证码
 		await refreshCaptcha();
 
 		if (parentId === null) {
-			// 顶层评论：插入到列表开头
 			comments = [newComment, ...comments];
 		} else {
-			// 回复：找到父评论并追加到 replies
 			comments = comments.map((c) => {
 				if (c.id === parentId) {
 					return { ...c, replies: [...c.replies, newComment] };
@@ -123,11 +174,11 @@ async function handleSubmit(
 onMount(() => {
 	loadComments();
 	refreshCaptcha();
+	loadApiKey();
 });
 </script>
 
 <div class="comment-section w-full mt-8">
-	<!-- 标题 -->
 	<div class="flex items-center gap-3 mb-6">
 		<h3 class="text-xl font-bold text-black/90 dark:text-white/90">
 			评论 ({total})
@@ -135,7 +186,6 @@ onMount(() => {
 		<div class="flex-1 border-t border-[var(--line-divider)] border-dashed"></div>
 	</div>
 
-	<!-- 加载错误 -->
 	{#if loadError}
 		<div
 			class="mb-4 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm"
@@ -147,14 +197,12 @@ onMount(() => {
 		</div>
 	{/if}
 
-	<!-- 加载中 -->
 	{#if loading}
 		<div class="text-center py-8 text-black/40 dark:text-white/40 text-sm">
 			加载评论中...
 		</div>
 	{/if}
 
-	<!-- 成功提示 -->
 	{#if submitSuccess}
 		<div
 			class="mb-4 p-3 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm"
@@ -163,7 +211,6 @@ onMount(() => {
 		</div>
 	{/if}
 
-	<!-- 提交错误 -->
 	{#if submitError}
 		<div
 			class="mb-4 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm"
@@ -172,9 +219,12 @@ onMount(() => {
 		</div>
 	{/if}
 
-	<!-- 评论列表 -->
 	{#if !loading}
-		<CommentList {comments} on:reply={handleReply} />
+		<CommentList
+			{comments}
+			on:reply={handleReply}
+			on:delete={handleDeleteRequest}
+		/>
 		{#if comments.length === 0}
 			<div class="text-center py-8 text-black/30 dark:text-white/30 text-sm">
 				暂无评论，来抢个沙发吧~
@@ -182,7 +232,6 @@ onMount(() => {
 		{/if}
 	{/if}
 
-	<!-- 发表表单 -->
 	<div class="mt-8">
 		<h4 class="text-base font-bold text-black/80 dark:text-white/80 mb-4">
 			发表评论
@@ -199,3 +248,16 @@ onMount(() => {
 		/>
 	</div>
 </div>
+
+<Portal>
+	{#if deleteTarget}
+		<DeleteConfirmModal
+			commentName={deleteTarget.name}
+			commentContent={deleteTarget.content}
+			{apiKey}
+			{deleting}
+			on:confirm={confirmDelete}
+			on:cancel={cancelDelete}
+		/>
+	{/if}
+</Portal>

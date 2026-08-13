@@ -10,11 +10,14 @@ const dispatch = createEventDispatcher();
 function reply() {
 	dispatch("reply", { id: comment.id, name: comment.name });
 }
+
+function deleteComment() {
+	dispatch("delete", { id: comment.id, name: comment.name, content: comment.content });
+}
 </script>
 
 <div class="comment-item py-4 border-b border-[var(--line-divider)] border-dashed">
 	<div class="flex gap-3">
-		<!-- 头像 -->
 		<img
 			src={gravatarUrl(comment.email_md5 || "default")}
 			alt={comment.name}
@@ -22,9 +25,7 @@ function reply() {
 			loading="lazy"
 		/>
 
-		<!-- 内容区 -->
 		<div class="flex-1 min-w-0">
-			<!-- 头部信息 -->
 			<div class="flex flex-wrap items-center gap-2 mb-1">
 				<span class="font-semibold text-sm text-black/80 dark:text-white/80">
 					{comment.name}
@@ -47,24 +48,29 @@ function reply() {
 				</span>
 			</div>
 
-			<!-- 评论内容 -->
 			<div
 				class="text-sm text-black/70 dark:text-white/70 leading-relaxed break-words [&_a]:text-[var(--primary)] [&_a]:underline [&_a]:hover:no-underline"
 			>
 				{@html linkify(comment.content)}
 			</div>
 
-			<!-- 回复按钮 -->
-			<button
-				class="mt-2 text-xs text-black/30 dark:text-white/30 hover:text-[var(--primary)] transition"
-				on:click={reply}
-			>
-				回复
-			</button>
+			<div class="mt-2 flex items-center gap-3">
+				<button
+					class="text-xs text-black/30 dark:text-white/30 hover:text-[var(--primary)] transition"
+					on:click={reply}
+				>
+					回复
+				</button>
+				<button
+					class="text-xs text-black/20 dark:text-white/20 hover:text-red-500 dark:hover:text-red-400 transition"
+					on:click={deleteComment}
+				>
+					删除
+				</button>
+			</div>
 		</div>
 	</div>
 
-	<!-- 子回复列表（一层） -->
 	{#if comment.replies?.length > 0}
 		<div class="ml-8 md:ml-12 mt-3 space-y-3">
 			{#each comment.replies as sub (sub.id)}
@@ -93,6 +99,12 @@ function reply() {
 								on:click={() => dispatch("reply", { id: sub.id, name: sub.name })}
 							>
 								回复
+							</button>
+							<button
+								class="text-xs text-black/20 dark:text-white/20 hover:text-red-500 dark:hover:text-red-400 transition"
+								on:click={() => dispatch("delete", { id: sub.id, name: sub.name, content: sub.content })}
+							>
+								删除
 							</button>
 						</div>
 						<div

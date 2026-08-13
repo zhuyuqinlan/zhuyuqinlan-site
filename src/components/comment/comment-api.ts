@@ -33,12 +33,9 @@ export interface SubmitData {
 	captcha_code: string;
 }
 
-// API 基础地址：从环境变量 COMMENT_API_URL 读取，留空则使用同域 /api
 const API_BASE = import.meta.env.COMMENT_API_URL || "/api";
 
-export async function fetchComments(
-	articleId: string,
-): Promise<CommentsResponse> {
+export async function fetchComments(articleId: string): Promise<CommentsResponse> {
 	const res = await fetch(
 		`${API_BASE}/comments?article_id=${encodeURIComponent(articleId)}`,
 	);
@@ -71,7 +68,24 @@ export async function submitComment(data: SubmitData): Promise<Comment> {
 	return json.data as Comment;
 }
 
-// 格式化时间
+export async function fetchApiKey(): Promise<string> {
+	const res = await fetch(`${API_BASE}/config`);
+	if (!res.ok) throw new Error("获取配置失败");
+	const json = await res.json();
+	return json.api_key as string;
+}
+
+export async function deleteComment(id: number, apiKey: string): Promise<void> {
+	const res = await fetch(`${API_BASE}/comments/${id}`, {
+		method: "DELETE",
+		headers: { "X-API-Key": apiKey },
+	});
+	if (!res.ok) {
+		const err = await res.json().catch(() => ({ message: "删除失败" }));
+		throw new Error(err.message || "删除失败");
+	}
+}
+
 export function formatTime(isoStr: string): string {
 	const d = new Date(isoStr);
 	const now = new Date();
@@ -89,12 +103,10 @@ export function formatTime(isoStr: string): string {
 	return `${y}-${m}-${day}`;
 }
 
-// Gravatar 头像 URL
 export function gravatarUrl(md5: string, size = 48): string {
 	return `https://www.gravatar.com/avatar/${md5}?d=identicon&s=${size}`;
 }
 
-// 简单防 XSS：转义 HTML 特殊字符
 export function escapeHtml(text: string): string {
 	return text
 		.replace(/&/g, "&amp;")
@@ -103,7 +115,6 @@ export function escapeHtml(text: string): string {
 		.replace(/"/g, "&quot;");
 }
 
-// 将纯文本中的链接转为可点击的 <a> 标签
 export function linkify(text: string): string {
 	const escaped = escapeHtml(text);
 	return escaped.replace(
