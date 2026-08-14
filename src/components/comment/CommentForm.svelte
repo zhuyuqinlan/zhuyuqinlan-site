@@ -21,7 +21,7 @@ $: if (captcha !== null) {
 }
 
 function handleSubmit() {
-	if (!name.trim() || !content.trim() || !captchaCode.trim()) return;
+	if (!content.trim() || !captchaCode.trim()) return;
 
 	dispatch("submit", {
 		name: name.trim(),
@@ -69,9 +69,8 @@ function handleCancelReply() {
 				<input
 					type="text"
 					bind:value={name}
-					placeholder="显示名称 *"
+					placeholder="显示名称（可选，不填将自动生成中文昵称）"
 					maxlength="50"
-					required
 					class="w-full px-4 py-2.5 rounded-xl text-sm bg-black/[0.03] dark:bg-white/[0.05]
                  border border-transparent focus:border-[var(--primary)]/30
                  outline-none transition text-black/80 dark:text-white/80
@@ -167,10 +166,11 @@ function handleCancelReply() {
 		<div class="flex items-center gap-3">
 			<button
 				type="submit"
-				disabled={submitting || !name.trim() || !content.trim() || !captchaCode.trim()}
-				class="btn-card px-6 py-2 rounded-xl text-sm font-semibold
-               disabled:opacity-40 disabled:cursor-not-allowed
-               active:scale-95 transition"
+				disabled={submitting || !content.trim() || !captchaCode.trim()}
+				class="w-full h-11 rounded-xl text-sm font-bold transition
+               bg-[var(--primary)] text-[var(--deep-text)]
+               hover:brightness-95 active:brightness-90 active:scale-[0.98]
+               disabled:opacity-40 disabled:cursor-not-allowed"
 			>
 				{#if submitting}
 					提交中...
@@ -180,14 +180,6 @@ function handleCancelReply() {
 					发表评论
 				{/if}
 			</button>
-
-			<span class="text-xs text-black/30 dark:text-white/30">
-				{#if replyTarget}
-					正在回复 @{replyTarget.name}
-				{:else}
-					支持 Markdown 风格的链接
-				{/if}
-			</span>
 		</div>
 	</form>
 </div>

@@ -221,15 +221,3 @@ const jsonLd = {
 
 </MainGridLayout>
 
-<script is:inline>
-	// Swup 页面切换后重新触发 Astro Island 水合（hydration）
-	document.addEventListener("swup:enable", () => {
-		window.swup.hooks.on("content:replace", () => {
-			document.querySelectorAll("astro-island[client='load']").forEach((el) => {
-				el.removeAttribute("ssr");
-				el.dispatchEvent(new CustomEvent("astro:hydrate"));
-			});
-		});
-	});
-</script>
-

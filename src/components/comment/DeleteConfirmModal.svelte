@@ -5,6 +5,7 @@ export let commentName = "";
 export let commentContent = "";
 export let apiKey = "";
 export let deleting = false;
+export let deleteError = "";
 
 const dispatch = createEventDispatcher();
 
@@ -72,6 +73,14 @@ function handleCancel() {
                disabled:opacity-50"
 			/>
 		</div>
+
+		{#if deleteError}
+			<div
+				class="mb-3 p-2.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs"
+			>
+				{deleteError}
+			</div>
+		{/if}
 
 		<div class="flex items-center justify-end gap-2">
 			<button

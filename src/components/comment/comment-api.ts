@@ -35,13 +35,26 @@ export interface SubmitData {
 
 const API_BASE = import.meta.env.COMMENT_API_URL || "/api";
 
+// 后端统一返回 { code, msg, data }，错误信息在 msg 字段；这里兼容
+// msg / message / error 多种字段，避免真实错误被吞掉。
+function errorMessage(err: unknown, fallback: string): string {
+	if (err && typeof err === "object") {
+		const e = err as Record<string, unknown>;
+		for (const key of ["msg", "message", "error"]) {
+			const v = e[key];
+			if (typeof v === "string" && v.trim()) return v.trim();
+		}
+	}
+	return fallback;
+}
+
 export async function fetchComments(articleId: string): Promise<CommentsResponse> {
 	const res = await fetch(
 		`${API_BASE}/comments?article_id=${encodeURIComponent(articleId)}`,
 	);
 	if (!res.ok) {
-		const err = await res.json().catch(() => ({ message: "加载评论失败" }));
-		throw new Error(err.message || "加载评论失败");
+		const err = await res.json().catch(() => null);
+		throw new Error(errorMessage(err, "加载评论失败"));
 	}
 	const json = await res.json();
 	return json.data as CommentsResponse;
@@ -61,8 +74,8 @@ export async function submitComment(data: SubmitData): Promise<Comment> {
 		body: JSON.stringify(data),
 	});
 	if (!res.ok) {
-		const err = await res.json().catch(() => ({ message: "发表失败" }));
-		throw new Error(err.message || "发表失败");
+		const err = await res.json().catch(() => null);
+		throw new Error(errorMessage(err, "发表失败"));
 	}
 	const json = await res.json();
 	return json.data as Comment;
@@ -81,8 +94,8 @@ export async function deleteComment(id: number, apiKey: string): Promise<void> {
 		headers: { "X-API-Key": apiKey },
 	});
 	if (!res.ok) {
-		const err = await res.json().catch(() => ({ message: "删除失败" }));
-		throw new Error(err.message || "删除失败");
+		const err = await res.json().catch(() => null);
+		throw new Error(errorMessage(err, "删除失败"));
 	}
 }
 

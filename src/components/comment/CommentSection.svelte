@@ -34,6 +34,7 @@ let apiKeyLoading = true;
 
 let deleteTarget: { id: number; name: string; content: string } | null = null;
 let deleting = false;
+let deleteError = "";
 
 async function loadComments() {
 	loading = true;
@@ -86,15 +87,18 @@ function handleDeleteRequest(event: CustomEvent<{
 	content: string;
 }>) {
 	deleteTarget = event.detail;
+	deleteError = "";
 }
 
 function cancelDelete() {
 	deleteTarget = null;
+	deleteError = "";
 }
 
 async function confirmDelete(event: CustomEvent<{ apiKey: string }>) {
 	if (!deleteTarget) return;
 	deleting = true;
+	deleteError = "";
 	try {
 		await deleteComment(deleteTarget.id, event.detail.apiKey);
 		comments = comments.filter((c) => {
@@ -105,7 +109,8 @@ async function confirmDelete(event: CustomEvent<{ apiKey: string }>) {
 		total--;
 		deleteTarget = null;
 	} catch (e: unknown) {
-		submitError = (e as Error).message || "删除失败";
+		// 错误提示显示在模态框内部，主区域的 submitError 会被遮罩挡住
+		deleteError = (e as Error).message || "删除失败";
 	} finally {
 		deleting = false;
 	}
@@ -256,6 +261,7 @@ onMount(() => {
 			commentContent={deleteTarget.content}
 			{apiKey}
 			{deleting}
+			{deleteError}
 			on:confirm={confirmDelete}
 			on:cancel={cancelDelete}
 		/>
