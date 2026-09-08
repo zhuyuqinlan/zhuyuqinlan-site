@@ -355,6 +355,23 @@ echo $SHELL
 ```
 
 ---
+## 安装H.264编码
+
+### 安装 FFmpeg + H.264
+
+```bash
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+sudo dnf swap libavcodec-free libavcodec-freeworld --allowerasing
+```
+补全常用 GStreamer 编解码器：
+
+```bash
+sudo dnf install \
+  gstreamer1-plugins-ugly \
+  gstreamer1-plugins-bad-freeworld
+```
+
+---
 
 ## 后记
 
