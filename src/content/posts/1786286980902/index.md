@@ -46,7 +46,18 @@ sudo dnf update -y
 Fedora 默认没有中文输入法，装一套 fcitx5 + Rime 即可：
 
 ```bash
-sudo dnf install fcitx5 fcitx5-rime fcitx5-configtool fcitx5-chinese-addons
+sudo dnf install fcitx5 fcitx5-rime fcitx5-configtool
+```
+#### 安装配置雾凇输入法和仿macos主题
+
+```bash
+mkdir ~/dev && cd ~/dev && git clone git@github.com:zhuyuqinlan/rime-ice.git
+rm ~/.local/share/fcitx5/rime -rf
+ln -s ~/dev/rime-ice ~/.local/share/fcitx5/rime
+mkdir -p ~/.local/share/fcitx5/themes
+cd /tmp && git clone https://github.com/thep0y/fcitx5-themes-candlelight.git
+cp /tmp/fcitx5-themes-candlelight/macOS-light ~/.local/share/fcitx5/themes -r
+cp /tmp/fcitx5-themes-candlelight/macOS-dark ~/.local/share/fcitx5/themes -r
 ```
 
 ### KDE 虚拟键盘
