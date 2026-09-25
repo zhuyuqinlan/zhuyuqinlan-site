@@ -56,8 +56,7 @@ rm ~/.local/share/fcitx5/rime -rf
 ln -s ~/dev/rime-ice ~/.local/share/fcitx5/rime
 mkdir -p ~/.local/share/fcitx5/themes
 cd /tmp && git clone https://github.com/thep0y/fcitx5-themes-candlelight.git
-cp /tmp/fcitx5-themes-candlelight/macOS-light ~/.local/share/fcitx5/themes -r
-cp /tmp/fcitx5-themes-candlelight/macOS-dark ~/.local/share/fcitx5/themes -r
+cp /tmp/fcitx5-themes-candlelight/winter ~/.local/share/fcitx5/themes -r
 ```
 
 ### KDE 虚拟键盘
