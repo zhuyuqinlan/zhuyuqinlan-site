@@ -228,6 +228,33 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ---
 
+## thinkfan风扇控制
+```bash
+sudo dnf install thinkfan
+```
+* 编辑配置文件用管理员打开`/etc/thinkfan.conf`输入
+```conf
+sensors:
+  - hwmon: /sys/class/hwmon
+    name: k10temp
+    indices: [1]
+
+fans:
+  - tpacpi: /proc/acpi/ibm/fan
+
+levels:
+  - [0, 0, 50]
+  - [1, 45, 55]
+  - [2, 50, 60]
+  - [3, 55, 65]
+  - [4, 60, 70]
+  - [5, 65, 80]
+  - [7, 75, 255]
+```
+* 配置服务自动开机自启
+```bash
+sudo systemctl enable --now thinkfan
+```
 ## 开发工具
 
 ### 开发工具包组
