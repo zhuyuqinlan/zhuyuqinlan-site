@@ -145,10 +145,10 @@ flatpak install com.tencent.WeChat com.qq.QQ cn.feishu.Feishu com.tencent.wemeet
 
 ### 命令行工具包
 
-一些常用的命令行工具，Fedora 官方源基本都有：
+一些常用的命令行工具，deb和rpm打包开发环境，Fedora 官方源基本都有：
 
 ```bash
-sudo dnf install vim xeyes proxychains-ng fastfetch vlc ripgrep fd-find libva-utils unrar p7zip yq
+sudo dnf install vim xeyes proxychains-ng fastfetch vlc ripgrep fd-find libva-utils unrar p7zip yq libxcrypt-compat rpm-build
 ```
 
 几个值得说明的：
