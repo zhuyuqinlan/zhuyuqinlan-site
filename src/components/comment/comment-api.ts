@@ -1,5 +1,8 @@
 // comment-api.ts — 评论 API 封装
 
+import { createAvatar } from "@dicebear/core";
+import * as initials from "@dicebear/initials";
+
 export interface Comment {
 	id: number;
 	article_id: string;
@@ -116,8 +119,9 @@ export function formatTime(isoStr: string): string {
 	return `${y}-${m}-${day}`;
 }
 
-export function gravatarUrl(md5: string, size = 48): string {
-	return `https://www.gravatar.com/avatar/${md5}?d=identicon&s=${size}`;
+// 使用 DiceBear 在浏览器本地生成头像 SVG（基于用户名的 initials 风格）
+export function avatarUrl(name: string, size = 48): string {
+	return createAvatar(initials, { seed: name, size }).toDataUri();
 }
 
 export function escapeHtml(text: string): string {

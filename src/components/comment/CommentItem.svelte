@@ -2,7 +2,7 @@
 import { createEventDispatcher } from "svelte";
 import Icon from "@iconify/svelte";
 import type { Comment } from "./comment-api";
-import { formatTime, gravatarUrl, linkify } from "./comment-api";
+import { avatarUrl, formatTime, linkify } from "./comment-api";
 
 export let comment: Comment;
 
@@ -24,7 +24,7 @@ function deleteComment() {
 		hover:bg-black/[0.02] dark:hover:bg-white/[0.03]"
 	>
 		<img
-			src={gravatarUrl(comment.email_md5 || "default")}
+			src={avatarUrl(comment.name)}
 			alt={comment.name}
 			class="w-10 h-10 rounded-full flex-shrink-0 bg-black/5 dark:bg-white/10
 			ring-1 ring-black/[0.06] dark:ring-white/[0.10]"
@@ -93,7 +93,7 @@ function deleteComment() {
 			{#each comment.replies as sub (sub.id)}
 				<div class="flex gap-3">
 					<img
-						src={gravatarUrl(sub.email_md5 || "default")}
+						src={avatarUrl(sub.name)}
 						alt={sub.name}
 						class="w-8 h-8 rounded-full flex-shrink-0 bg-black/5 dark:bg-white/10
 						ring-1 ring-black/[0.06] dark:ring-white/[0.10]"

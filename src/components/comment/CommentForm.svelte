@@ -65,7 +65,7 @@ function handleRefresh() {
 			<input
 				type="email"
 				bind:value={email}
-				placeholder="邮箱（可选，用于 Gravatar 头像）"
+				placeholder="邮箱（可选，不公开显示）"
 				maxlength="100"
 				class={field}
 			/>
