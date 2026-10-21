@@ -15,7 +15,7 @@ const POSTS_DIR = "./src/content/posts"
 
 function parseFrontmatter(filePath) {
   const content = fs.readFileSync(filePath, "utf-8")
-  const match = content.match(/^---\n([\s\S]*?)\n---/)
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)
   if (!match) return null
 
   const yaml = match[1]
@@ -70,7 +70,7 @@ async function syncArticles() {
     })
 
     if (res.ok) {
-      console.log(`同步完成`)
+      console.log("同步完成")
     } else {
       console.log(`同步失败: ${res.status}`)
     }
