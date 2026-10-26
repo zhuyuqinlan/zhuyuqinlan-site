@@ -32,3 +32,13 @@ http://127.0.0.1:9000/static/cecep-energy/tiles/{z}/{x}/{reverseY}.jpg
 ```text
 http://127.0.0.1:9000/static/cecep-energy/3d-tiles/1/tileset.json
 ```
+## 修改配置
+1. 设置3D tiles
+![设置项](image.png)
+* 搜索Enable Frustum Culling，保持关闭
+![保持关闭](image-1.png)
+2. 修改项目设置
+* 搜索Shadow Maps选中Shadow Maps
+![选项](image-2.png)
+* 搜索Hardware Ray Tracing
+![设置内容](image-3.png)
